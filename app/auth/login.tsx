@@ -1,7 +1,7 @@
 import { Link, router, Stack } from 'expo-router';
 import { useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { Button, Chip, HelperText } from 'react-native-paper';
+import { Button, Chip, HelperText, Icon } from 'react-native-paper';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
 import SubmitButton from '~/components/Button/SubmitButton';
 import Input from '~/components/Input/Input';
@@ -66,10 +66,10 @@ export default function Login() {
         </Pressable>
         {!!tenant?.name && (
           <Chip
-            icon="information"
+            icon={() => <Icon source="earth" size={16} />}
             onClose={() => setTenant(null)}
             className="mb-2"
-            style={{ backgroundColor: '#fff', borderWidth: 1, borderColor: '#ddd' }}>
+            style={{ borderWidth: 1, borderColor: '#ddd' }}>
             {tenant.name} tenant'ına giriş yapmaktasınız.
           </Chip>
         )}
