@@ -21,10 +21,16 @@ const Header = (props: NativeStackHeaderProps) => (
 export default function RootLayout() {
   const theme = useTheme();
   return (
-    <PaperProvider theme={{ roundness: 2 }}>
-      <Stack screenOptions={{ header: Header }}>
-        <Stack.Screen name="splash" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    <PaperProvider theme={{ roundness: 2, colors: { ...theme.colors, primary: '#dc0201' } }}>
+      <Stack
+        screenOptions={{
+          // header: Header,
+          headerShown: false,
+          contentStyle: { backgroundColor: '#fff' },
+        }}>
+        <Stack.Screen name="splash" />
+        <Stack.Screen name="auth" />
+        <Stack.Screen name="(tabs)" />
         {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
       </Stack>
     </PaperProvider>

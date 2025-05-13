@@ -10,7 +10,7 @@ export default function App() {
   const { setProfile, setGrantedPolicies } = useStore();
 
   function redirectToLogin() {
-    router.replace('/login');
+    router.replace('/auth/login');
     setTimeout(async () => {
       await SplashScreen.hideAsync();
     }, 2000);
