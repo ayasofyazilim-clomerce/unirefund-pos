@@ -1,8 +1,9 @@
-import { Link, Tabs } from 'expo-router';
-import { Appbar } from 'react-native-paper';
+import { Link, Tabs, useRouter } from 'expo-router';
+import { Appbar, Icon } from 'react-native-paper';
 import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useStore } from '~/store/store';
+import { Pressable, View } from 'react-native';
 
 // import { HeaderButton } from '../../components/HeaderButton';
 // import { TabBarIcon } from '../../components/TabBarIcon';
@@ -18,12 +19,15 @@ const Header = (props: BottomTabHeaderProps) => (
 );
 export default function TabLayout() {
   const { grantedPolicies } = useStore();
-
+  const router = useRouter();
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: 'black',
         header: Header,
+        sceneStyle: {
+          backgroundColor: '#fff',
+        },
       }}>
       <Tabs.Screen
         name="index"
@@ -37,13 +41,44 @@ export default function TabLayout() {
           // ),
         }}
       />
-
       <Tabs.Screen
         name="two"
         options={{
-          href: grantedPolicies?.['CRMService.Merchants'] ? '/two' : null,
-          title: 'Mağazalar',
-          tabBarIcon: ({ color }) => <AntDesign name="isv" size={24} color={color} />,
+          tabBarItemStyle: {
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          tabBarButton: () => (
+            <Pressable
+              onPress={() => router.push('/(tabs)/two')}
+              style={{
+                position: 'absolute',
+                bottom: 10,
+                height: 60,
+                width: 60,
+                borderRadius: 30,
+                borderWidth: 3,
+                borderColor: '#fff',
+                backgroundColor: '#de1919',
+                justifyContent: 'center',
+                alignItems: 'center',
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                shadowRadius: 5,
+                elevation: 8, // Android için
+              }}>
+              <Icon source="store-marker" size={28} color={'#fff'} />
+            </Pressable>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          href: grantedPolicies?.['CRMService.Merchants'] ? '/(tabs)/profile' : null,
+          title: 'Profil',
+          tabBarIcon: ({ color }) => <Icon source="account-outline" size={28} color={color} />,
         }}
       />
     </Tabs>
