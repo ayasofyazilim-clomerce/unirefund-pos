@@ -1,23 +1,27 @@
 import { Stack } from 'expo-router';
 
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Icon } from 'react-native-paper';
-import { ListView } from '~/components/ListView/ListView';
-
-function ListItem({ title, icon }: { title: string; icon: string }) {
-  return (
-    <Pressable className="flex-row items-center rounded-lg p-2 active:bg-gray-50">
-      <Icon source={icon} color={'#080d19'} size={28} />
-      <Text className="ml-3 mr-auto text-lg text-[#080d19]">{title}</Text>
-      <Icon source="chevron-right" color={'#080d19'} size={32} />
-    </Pressable>
-  );
-}
+import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Appbar } from 'react-native-paper';
+import { ListItem, ListView } from '~/components/ListView/ListView';
+import QRModal from './qr-modal';
 
 export default function Profile() {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
-      <Stack.Screen options={{ title: 'Profil' }} />
+      <Stack.Screen
+        options={{
+          title: 'Profil',
+          headerRight: () => (
+            <Appbar.Action
+              color="#6450c3"
+              icon={'qrcode-scan'}
+              onPress={() => setModalVisible(true)}
+            />
+          ),
+        }}
+      />
       <View style={styles.container}>
         <ListView title="Hesap ayarları">
           <ListItem title="Hesap bilgileri" icon="account-circle-outline" />
@@ -29,6 +33,7 @@ export default function Profile() {
           <ListItem title="Çıkış Yap" icon="exit-to-app" />
         </ListView>
       </View>
+      <QRModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
     </>
   );
 }

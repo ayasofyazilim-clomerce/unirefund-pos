@@ -5,18 +5,6 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { useStore } from '~/store/store';
 import { Pressable, View } from 'react-native';
 
-// import { HeaderButton } from '../../components/HeaderButton';
-// import { TabBarIcon } from '../../components/TabBarIcon';
-
-const Header = (props: BottomTabHeaderProps) => (
-  <Appbar.Header>
-    {/* <Appbar.BackAction onPress={() => props.navigation.goBack()} /> */}
-
-    <Appbar.Content title={props.options.title} />
-    <Appbar.Action icon="calendar" onPress={() => {}} />
-    <Appbar.Action icon="magnify" onPress={() => {}} />
-  </Appbar.Header>
-);
 export default function TabLayout() {
   const { grantedPolicies } = useStore();
   const router = useRouter();
@@ -24,7 +12,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: 'black',
-        header: Header,
         sceneStyle: {
           backgroundColor: '#fff',
         },
@@ -34,11 +21,6 @@ export default function TabLayout() {
         options={{
           title: 'Ev',
           tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} />,
-          // headerRight: () => (
-          //   <Link href="/modal" asChild>
-          //     {/* <HeaderButton /> */}
-          //   </Link>
-          // ),
         }}
       />
       <Tabs.Screen
@@ -76,6 +58,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
+          headerShown: false,
           href: grantedPolicies?.['CRMService.Merchants'] ? '/(tabs)/profile' : null,
           title: 'Profil',
           tabBarIcon: ({ color }) => <Icon source="account-outline" size={28} color={color} />,
