@@ -1,20 +1,18 @@
 import { router, Stack } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import { logoutUser } from '~/actions/auth/actions';
+import { logoutUser } from '~/actions/auth/logoutUser';
 import SubmitButton from '~/components/Button/SubmitButton';
 
-export default function Home() {
+function Home() {
   async function logoutAndRedirect() {
     await logoutUser();
-    // Redirect to login screen
-    router.replace('/login');
+    router.replace('/auth/login');
   }
 
   return (
     <>
       <Stack.Screen options={{ title: 'Ev' }} />
       <View style={styles.container}>
-        l
         <SubmitButton
           className="mt-4"
           mode="contained"
@@ -27,6 +25,7 @@ export default function Home() {
   );
 }
 
+export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

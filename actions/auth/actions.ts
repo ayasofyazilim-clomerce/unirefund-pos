@@ -1,7 +1,7 @@
-import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
+import type { Store } from '~/store/types';
 import { getGrantedPoliciesApi, getUserProfileApi } from '../AccountService/actions';
-import type { Store } from '~/store/store';
 
 export async function checkIsLoggedIn() {
   const accessToken = await SecureStore.getItemAsync('accessToken');
@@ -10,17 +10,14 @@ export async function checkIsLoggedIn() {
   }
   return true;
 }
-export async function logoutUser() {
-  await SecureStore.deleteItemAsync('accessToken');
-  await AsyncStorage.removeItem('refreshToken');
-}
+
 export async function loginWithCredentials(username: string, password: string, tenantId?: string) {
   try {
     const response = await fetch('https://api.unirefund.com/connect/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        __tenant: tenantId || '',
+        ...(tenantId ? { __tenant: tenantId } : {}),
       },
       body: new URLSearchParams({
         username: username,
@@ -34,7 +31,10 @@ export async function loginWithCredentials(username: string, password: string, t
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error('Login failed');
+      if (data.error_description) {
+        return data.error_description as string;
+      }
+      return 'Unknown error';
     }
 
     await SecureStore.setItemAsync('accessToken', data.access_token);
@@ -42,7 +42,7 @@ export async function loginWithCredentials(username: string, password: string, t
     return true;
   } catch (error) {
     console.error('Login error:', error);
-    return false;
+    return 'Unknown error';
   }
 }
 export async function fetchNewAccessTokenByRefreshToken() {

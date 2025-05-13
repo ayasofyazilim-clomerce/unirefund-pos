@@ -1,5 +1,4 @@
 import { fetchRequest } from '~/helper-functions/customFetch';
-import { logoutUser } from '../auth/actions';
 import { getAccountServiceClient } from '../lib';
 import type { GrantedPolicies } from './types';
 
@@ -11,7 +10,6 @@ export async function getUserProfileApi() {
   const response = await fetchRequest(getData);
   if (response instanceof Error) {
     console.error('Error fetching user profile:', response);
-    await logoutUser();
     return undefined;
   }
   return response;
@@ -27,7 +25,6 @@ export async function getGrantedPoliciesApi() {
   const response = await fetchRequest(getData);
   if (response instanceof Error) {
     console.error('Error fetching granted policies:', response);
-    await logoutUser();
     return undefined;
   }
   return response;
