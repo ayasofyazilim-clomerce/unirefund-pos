@@ -1,20 +1,44 @@
-import { Link, Tabs, useRouter } from 'expo-router';
-import { Appbar, Icon } from 'react-native-paper';
-import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { useStore } from '~/store/store';
-import { Pressable, View } from 'react-native';
+import { Tabs, useRouter } from 'expo-router';
+import { Pressable, Text, View } from 'react-native';
+import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
+import { Icon, IconButton } from 'react-native-paper';
+
+function Header(props: BottomTabHeaderProps) {
+  const router = useRouter();
+  return (
+    <View
+      style={{
+        paddingHorizontal: 24,
+        paddingVertical: 12,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderColor: '#ddd',
+        alignItems: 'center',
+      }}>
+      <Text className="text-xl font-bold">{props.options.title}</Text>
+      <IconButton
+        icon="bell-outline"
+        size={24}
+        onPress={() => {
+          router.navigate('/(tabs)/profile/notifications');
+        }}
+      />
+    </View>
+  );
+}
 
 export default function TabLayout() {
-  const { grantedPolicies } = useStore();
   const router = useRouter();
+
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: 'black',
-        sceneStyle: {
-          backgroundColor: '#fff',
-        },
+        sceneStyle: { backgroundColor: '#fff' },
+        header: Header,
       }}>
       <Tabs.Screen
         name="index"
@@ -58,8 +82,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          headerShown: false,
-          href: grantedPolicies?.['CRMService.Merchants'] ? '/(tabs)/profile' : null,
+          href: '/(tabs)/profile',
           title: 'Profil',
           tabBarIcon: ({ color }) => <Icon source="account-outline" size={28} color={color} />,
         }}
