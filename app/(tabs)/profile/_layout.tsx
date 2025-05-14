@@ -1,16 +1,15 @@
-import { Appbar, PaperProvider } from 'react-native-paper';
 import { Stack } from 'expo-router';
-import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import { useTheme } from 'react-native-paper';
+import { Header } from '~/components/Header';
 
-export default function RootLayout() {
-  const theme = useTheme();
+export default function Layout() {
   return (
     <Stack
       screenOptions={{
-        header: undefined,
-        headerShown: false,
+        header: Header,
         contentStyle: { backgroundColor: '#fff' },
-      }}></Stack>
+      }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="(account)/settings" options={{ title: 'Hesap Ayarları' }} />
+    </Stack>
   );
 }
