@@ -1,13 +1,22 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { logoutUser } from '~/actions/auth/logoutUser';
 import { ListItem, ListView } from '~/components/ListView';
 import QRModal from './qr-modal';
 
 export default function Profile() {
   const [modalVisible, setModalVisible] = useState(false);
+
+  async function logoutAndRedirect() {
+    await logoutUser();
+    if (router.canDismiss()) {
+      router.dismissAll();
+    }
+    router.replace('/(public)/login');
+  }
+
   return (
     <>
       <Stack.Screen
@@ -23,7 +32,7 @@ export default function Profile() {
         </ListView>
         <ListView title="Diğer">
           <ListItem title="Destek" icon="help-circle-outline" />
-          <ListItem title="Çıkış Yap" icon="exit-to-app" />
+          <ListItem title="Çıkış Yap" icon="exit-to-app" onPress={logoutAndRedirect} />
         </ListView>
       </View>
       <QRModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
