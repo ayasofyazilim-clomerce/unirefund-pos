@@ -6,10 +6,10 @@ export default function Layout() {
     <Stack
       screenOptions={{
         header: Header,
+        headerBackVisible: true,
         contentStyle: { backgroundColor: '#fff' },
       }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="(account)" options={{ headerShown: false }} />
+      <Stack.Screen name="settings" options={{ title: 'Hesap Ayarları' }} />
     </Stack>
   );
 }
