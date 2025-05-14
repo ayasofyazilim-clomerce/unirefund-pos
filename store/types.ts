@@ -3,6 +3,9 @@ import type { GrantedPolicies } from '~/actions/AccountService/types';
 import type { Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto } from '@ayasofyazilim/core-saas/AccountService';
 
 export type Store = {
+  accessToken: string | null;
+  setAccessToken: (accessToken: string | null) => void;
+
   tenant: Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto | null;
   setTenant: (tenant: Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto | null) => void;
 

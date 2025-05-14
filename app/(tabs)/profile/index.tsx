@@ -31,7 +31,11 @@ export default function Profile() {
             icon="account-circle-outline"
             onPress={() => router.navigate('/(tabs)/profile/(account)/settings')}
           />
-          <ListItem title="Şifre değiştir" icon="lock-outline" />
+          <ListItem
+            title="Şifre değiştir"
+            icon="lock-outline"
+            onPress={() => router.navigate('/(tabs)/profile/(account)/change-password')}
+          />
           <ListItem title="Bildirim tercihleri" icon="bell-badge-outline" />
         </ListView>
         <ListView title="Diğer">

@@ -10,6 +10,7 @@ export default function Layout() {
         contentStyle: { backgroundColor: '#fff' },
       }}>
       <Stack.Screen name="settings" options={{ title: 'Hesap Ayarları' }} />
+      <Stack.Screen name="change-password" options={{ title: 'Şifre Değiştir' }} />
     </Stack>
   );
 }

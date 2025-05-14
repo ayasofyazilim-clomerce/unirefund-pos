@@ -1,13 +1,13 @@
-import { router, Stack } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
-import { logoutUser } from '~/actions/auth/logoutUser';
-import SubmitButton from '~/components/Button.Submit';
+import { Stack } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native';
 
 function Home() {
   return (
     <>
       <Stack.Screen options={{ title: 'Ev' }} />
-      <View style={styles.container}></View>
+      <View style={styles.container}>
+        <Text>Ana Sayfa</Text>
+      </View>
     </>
   );
 }
