@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 export default function Home() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Mağazalar' }} />
+      <Stack.Screen options={{ title: 'Keşfet' }} />
       <View style={styles.container}></View>
     </>
   );
