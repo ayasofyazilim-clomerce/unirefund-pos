@@ -1,7 +1,7 @@
 import { router, Stack } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { logoutUser } from '~/actions/auth/logoutUser';
-import SubmitButton from '~/components/Button/SubmitButton';
+import SubmitButton from '~/components/Button.Submit';
 
 function Home() {
   async function logoutAndRedirect() {

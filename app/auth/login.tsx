@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Button, Chip, HelperText, Icon } from 'react-native-paper';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
-import SubmitButton from '~/components/Button/SubmitButton';
-import Input from '~/components/Input/Input';
+import SubmitButton from '~/components/Button.Submit';
+import Input from '~/components/Input';
 import { useStore } from '~/store/store';
 
 export default function Login() {

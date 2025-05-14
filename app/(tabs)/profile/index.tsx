@@ -1,9 +1,9 @@
 import { Stack } from 'expo-router';
 
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import { ListItem, ListView } from '~/components/ListView/ListView';
+import { ListItem, ListView } from '~/components/ListView';
 import QRModal from './qr-modal';
 
 export default function Profile() {
@@ -12,14 +12,7 @@ export default function Profile() {
     <>
       <Stack.Screen
         options={{
-          title: 'Profil',
-          headerRight: () => (
-            <Appbar.Action
-              color="#6450c3"
-              icon={'qrcode-scan'}
-              onPress={() => setModalVisible(true)}
-            />
-          ),
+          title: 'Ev',
         }}
       />
       <View style={styles.container}>

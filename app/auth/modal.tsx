@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { HelperText, IconButton } from 'react-native-paper';
 import { getTenantByNameApi } from '~/actions/AccountService/actions';
-import SubmitButton from '~/components/Button/SubmitButton';
-import Input from '~/components/Input/Input';
+import SubmitButton from '~/components/Button.Submit';
+import Input from '~/components/Input';
 import { useDebounce } from '~/hooks/useDebounce';
 import { useStore } from '~/store/store';
 
