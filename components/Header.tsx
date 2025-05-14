@@ -6,6 +6,7 @@ import { IconButton } from 'react-native-paper';
 
 export function Header(props: BottomTabHeaderProps | NativeStackHeaderProps) {
   const router = useRouter();
+
   return (
     <View
       style={{
@@ -18,7 +19,19 @@ export function Header(props: BottomTabHeaderProps | NativeStackHeaderProps) {
         borderColor: '#ddd',
         alignItems: 'center',
       }}>
-      <Text className="text-xl font-bold">{props.options.title}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        {'headerBackVisible' in props.options && (
+          <IconButton
+            icon="arrow-left"
+            size={24}
+            onPress={() => {
+              router.back();
+            }}
+          />
+        )}
+
+        <Text className="text-xl font-bold">{props.options.title}</Text>
+      </View>
       <IconButton
         icon="bell-outline"
         size={24}
