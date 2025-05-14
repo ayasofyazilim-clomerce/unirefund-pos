@@ -32,17 +32,21 @@ export default function Modal() {
         <IconButton icon="close" size={24} onPress={() => router.back()} />
       </View>
       <View style={styles.container}>
-        <Input
-          mode="outlined"
-          label="Tenant Adı"
-          value={tenantNameInput}
-          error={error}
-          autoFocus={true}
-          onChangeText={(text) => setTenantNameInput(text)}
-        />
-        <HelperText type="error" visible={error}>
-          Bu tenant adı bulunamadı.
-        </HelperText>
+        <View>
+          <View className="flex flex-row">
+            <Input
+              mode="outlined"
+              label="Tenant Adı"
+              value={tenantNameInput}
+              error={error}
+              autoFocus={true}
+              onChangeText={(text) => setTenantNameInput(text)}
+            />
+          </View>
+          <HelperText type="error" visible={error}>
+            Bu tenant adı bulunamadı.
+          </HelperText>
+        </View>
         <SubmitButton
           className="mt-4"
           mode="contained"

@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { getGrantedPoliciesApi, getUserProfileApi } from '~/actions/AccountService/actions';
 import { checkIsLoggedIn } from '~/actions/auth/actions';
 import { useStore } from '~/store/store';
+import * as SecureStore from 'expo-secure-store';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const { setProfile, setGrantedPolicies } = useStore();
+  const { setProfile, setGrantedPolicies, setAccessToken } = useStore();
 
   function redirectToLogin() {
     router.replace('/(public)/login');
@@ -32,6 +33,9 @@ export default function App() {
         redirectToLogin();
         return;
       }
+      const accessToken = await SecureStore.getItemAsync('accessToken');
+      setAccessToken(accessToken);
+
       setProfile(userProfile);
       const grantedPolicies = await getGrantedPoliciesApi();
       setGrantedPolicies(grantedPolicies);

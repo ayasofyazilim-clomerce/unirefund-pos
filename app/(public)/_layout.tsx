@@ -5,7 +5,7 @@ export default function Layout() {
     <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#fff' } }}>
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen
-        name="modal"
+        name="tenant-modal"
         options={{
           presentation: 'formSheet',
           animation: 'slide_from_bottom',

@@ -73,7 +73,7 @@ export default function Login() {
             {tenant.name} tenant'ına giriş yapmaktasınız.
           </Chip>
         )}
-        <View className="flex flex-col gap-8">
+        <View className="flex flex-row">
           <Input
             mode="outlined"
             label="Email"
@@ -81,7 +81,8 @@ export default function Login() {
             onChangeText={(text) => setUsernameInput(text)}
             onChange={onInputChange}
           />
-
+        </View>
+        <View className="flex flex-row">
           <Input
             mode="outlined"
             label="Şifre"
@@ -120,7 +121,7 @@ export default function Login() {
         </Button> */}
       </View>
       <View className={`${logoClickCount > 5 ? '' : 'invisible'} items-center`}>
-        <Link href="/(public)/modal" asChild>
+        <Link href="/(public)/tenant-modal" asChild>
           <Button
             icon="handshake"
             mode="text"
