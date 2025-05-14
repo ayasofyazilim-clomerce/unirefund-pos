@@ -4,23 +4,10 @@ import { logoutUser } from '~/actions/auth/logoutUser';
 import SubmitButton from '~/components/Button.Submit';
 
 function Home() {
-  async function logoutAndRedirect() {
-    await logoutUser();
-    router.replace('/auth/login');
-  }
-
   return (
     <>
       <Stack.Screen options={{ title: 'Ev' }} />
-      <View style={styles.container}>
-        <SubmitButton
-          className="mt-4"
-          mode="contained"
-          onSubmit={logoutAndRedirect}
-          icon={'chevron-right'}>
-          Çıkış Yap
-        </SubmitButton>
-      </View>
+      <View style={styles.container}></View>
     </>
   );
 }

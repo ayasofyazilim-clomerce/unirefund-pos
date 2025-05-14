@@ -21,12 +21,16 @@ export default function Profile() {
     <>
       <Stack.Screen
         options={{
-          title: 'Ev',
+          title: 'Profil',
         }}
       />
       <View style={styles.container}>
         <ListView title="Hesap ayarları">
-          <ListItem title="Hesap bilgileri" icon="account-circle-outline" />
+          <ListItem
+            title="Hesap bilgileri"
+            icon="account-circle-outline"
+            onPress={() => router.navigate('/(tabs)/profile/(account)/settings')}
+          />
           <ListItem title="Şifre değiştir" icon="lock-outline" />
           <ListItem title="Bildirim tercihleri" icon="bell-badge-outline" />
         </ListView>

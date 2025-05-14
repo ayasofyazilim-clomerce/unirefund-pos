@@ -73,22 +73,24 @@ export default function Login() {
             {tenant.name} tenant'ına giriş yapmaktasınız.
           </Chip>
         )}
-        <Input
-          mode="outlined"
-          label="Email"
-          value={usernameInput}
-          outlineStyle={{ borderWidth: 1 }}
-          onChangeText={(text) => setUsernameInput(text)}
-          onChange={onInputChange}
-        />
-        <Input
-          mode="outlined"
-          label="Şifre"
-          value={passwordInput}
-          onChangeText={(text) => setPasswordInput(text)}
-          onChange={onInputChange}
-          secureTextEntry={true}
-        />
+        <View className="flex flex-col gap-8">
+          <Input
+            mode="outlined"
+            label="Email"
+            value={usernameInput}
+            onChangeText={(text) => setUsernameInput(text)}
+            onChange={onInputChange}
+          />
+
+          <Input
+            mode="outlined"
+            label="Şifre"
+            value={passwordInput}
+            onChangeText={(text) => setPasswordInput(text)}
+            onChange={onInputChange}
+            secureTextEntry={true}
+          />
+        </View>
         <HelperText type="error" visible={loginDisabled} className={'-mx-2 p-0'}>
           {loginError}
         </HelperText>
@@ -118,7 +120,7 @@ export default function Login() {
         </Button> */}
       </View>
       <View className={`${logoClickCount > 5 ? '' : 'invisible'} items-center`}>
-        <Link href="/auth/modal" asChild>
+        <Link href="/(public)/modal" asChild>
           <Button
             icon="handshake"
             mode="text"
