@@ -10,7 +10,7 @@ export default function App() {
   const { setProfile, setGrantedPolicies } = useStore();
 
   function redirectToLogin() {
-    router.replace('/auth/login');
+    router.replace('/(public)/login');
     setTimeout(async () => {
       await SplashScreen.hideAsync();
     }, 2000);
@@ -27,7 +27,6 @@ export default function App() {
     if (isLoggedIn) {
       console.log('User is logged in');
       const userProfile = await getUserProfileApi();
-      console.log(userProfile);
       if (!userProfile) {
         console.error('Error fetching user profile:', userProfile);
         redirectToLogin();

@@ -82,7 +82,6 @@ export async function getUserData(
   setGrantedPolicies: Store['setGrantedPolicies']
 ) {
   const userProfile = await getUserProfileApi();
-  console.log(userProfile);
   if (!userProfile) {
     console.error('Error fetching user profile:', userProfile);
     return false;
