@@ -1,10 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getAccountServiceClient } from '../lib';
+import { ENVIRONMENT, getAccountServiceClient } from '../lib';
+import * as SecureStore from 'expo-secure-store';
 
 export async function logoutUser() {
   const client = await getAccountServiceClient();
   await client.login.getApiAccountLogout();
+
   await AsyncStorage.removeItem('refreshToken');
   await AsyncStorage.removeItem('accessToken');
-  await fetch('http://192.168.1.106:1234/api/m/logout');
+
+  const env = (await SecureStore.getItemAsync('env')) as 'dev' | 'live';
+  await fetch(`${ENVIRONMENT[env]}/api/m/logout`);
+
+  await SecureStore.setItemAsync('env', 'live');
 }

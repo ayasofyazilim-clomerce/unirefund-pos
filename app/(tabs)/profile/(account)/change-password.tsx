@@ -1,16 +1,17 @@
 import { Stack } from 'expo-router';
 
 import { WebView } from 'react-native-webview';
+import { ENVIRONMENT } from '~/actions/lib';
 import { useStore } from '~/store/store';
 
 function ChangePassword() {
-  const { accessToken } = useStore();
+  const { accessToken, env } = useStore();
   return (
     <>
       <Stack.Screen options={{ title: 'Şifre Değiştir' }} />
       <WebView
         source={{
-          uri: 'http://192.168.1.106:1234/tr/m/account/change-password',
+          uri: `${ENVIRONMENT[env]}/tr/m/account/change-password`,
           headers: {
             Authorization: accessToken,
           },

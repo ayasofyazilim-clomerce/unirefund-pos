@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { Store } from '~/store/types';
 import { getGrantedPoliciesApi, getUserProfileApi } from '../AccountService/actions';
+import { ENVIRONMENT } from '../lib';
+import * as SecureStore from 'expo-secure-store';
 
 export async function checkIsLoggedIn() {
   const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
@@ -12,6 +14,7 @@ export async function checkIsLoggedIn() {
 
 export async function loginWithCredentials(username: string, password: string, tenantId?: string) {
   try {
+    const env = (await SecureStore.getItemAsync('env')) as Store['env'];
     const response = await fetch('https://api.unirefund.com/connect/token', {
       method: 'POST',
       headers: {
@@ -37,7 +40,7 @@ export async function loginWithCredentials(username: string, password: string, t
     }
     await AsyncStorage.setItem('refreshToken', data.refresh_token);
     await AsyncStorage.setItem('accessToken', data.access_token);
-    await fetch(`http://192.168.1.106:1234/api/m/?access_token=${data.access_token}`);
+    await fetch(`${ENVIRONMENT[env]}/api/m/?access_token=${data.access_token}`);
     return true;
   } catch (error) {
     console.error('Login error:', error);

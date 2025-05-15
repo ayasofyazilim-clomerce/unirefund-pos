@@ -2,6 +2,9 @@ import { createWithEqualityFn } from 'zustand/traditional';
 import type { Store } from './types';
 
 export const useStore = createWithEqualityFn<Store>()((set) => ({
+  env: 'live',
+  setEnv: (env) => set(() => ({ env })),
+
   accessToken: null,
   setAccessToken: (accessToken) => set(() => ({ accessToken })),
 

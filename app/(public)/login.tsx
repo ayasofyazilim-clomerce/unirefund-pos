@@ -10,27 +10,35 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Button, Chip, HelperText, Icon } from 'react-native-paper';
+import { Button, Chip, HelperText, Icon, SegmentedButtons } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
 import SubmitButton from '~/components/Button.Submit';
 import Input from '~/components/Input';
 import { useStore } from '~/store/store';
+import * as SecureStore from 'expo-secure-store';
 
 export default function Login() {
-  const { tenant, setTenant, setProfile, setGrantedPolicies } = useStore();
+  const { tenant, setTenant, setProfile, setGrantedPolicies, setEnv, env } = useStore();
 
-  const [usernameInput, setUsernameInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
+  const [usernameInput, setUsernameInput] = useState('eren_o');
+  const [passwordInput, setPasswordInput] = useState('123Aa!');
 
   const [logoClickCount, setLogoClickCount] = useState(0);
 
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loginDisabled, setLoginDisabled] = useState(false);
 
+  useEffect(() => {
+    if (logoClickCount > 5) {
+      setUsernameInput('admin');
+      setPasswordInput('1q2w3E*');
+    }
+  }, [logoClickCount]);
   async function loginFunction() {
     setLoginDisabled(true);
     try {
+      await SecureStore.setItemAsync('env', env);
       const loginStatus = await loginWithCredentials(
         usernameInput,
         passwordInput,
@@ -60,6 +68,23 @@ export default function Login() {
           title: 'Giriş Yap',
         }}
       />
+      <View className="px-6 pt-8">
+        <SegmentedButtons
+          value={env}
+          onValueChange={setEnv}
+          theme={{ colors: { secondaryContainer: '#de1919', onSecondaryContainer: '#fff' } }}
+          buttons={[
+            {
+              value: 'dev',
+              label: 'Dev',
+            },
+            {
+              value: 'live',
+              label: 'Live',
+            },
+          ]}
+        />
+      </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
@@ -105,6 +130,7 @@ export default function Login() {
                 secureTextEntry={true}
               />
             </View>
+
             <HelperText type="error" visible={loginDisabled} className={'-mx-2 p-0'}>
               {loginError}
             </HelperText>

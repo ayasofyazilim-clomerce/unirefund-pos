@@ -5,6 +5,12 @@ const HEADERS = {
   'X-Requested-With': 'XMLHttpRequest',
   'Content-Type': 'application/json',
 };
+
+export const ENVIRONMENT = {
+  dev: 'http://192.168.1.106:1234',
+  live: 'https://uat.unirefund.com',
+};
+
 export async function getAccountServiceClient(customHeaders?: Record<string, string>) {
   const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
 
