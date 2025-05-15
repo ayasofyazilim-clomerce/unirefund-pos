@@ -1,9 +1,9 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router, SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
 import { getGrantedPoliciesApi, getUserProfileApi } from '~/actions/AccountService/actions';
 import { checkIsLoggedIn } from '~/actions/auth/actions';
 import { useStore } from '~/store/store';
-import * as SecureStore from 'expo-secure-store';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,7 +33,8 @@ export default function App() {
         redirectToLogin();
         return;
       }
-      const accessToken = await SecureStore.getItemAsync('accessToken');
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      await fetch(`http://192.168.1.106:1234/api/m/?access_token=${accessToken}`);
       setAccessToken(accessToken);
 
       setProfile(userProfile);

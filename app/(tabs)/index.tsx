@@ -1,7 +1,12 @@
 import { Stack } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useRef } from 'react';
 
+import { WebView } from 'react-native-webview';
+import { StyleSheet, Text, View } from 'react-native';
+import { useStore } from '~/store/store';
 function Home() {
+  const { accessToken } = useStore();
+
   return (
     <>
       <Stack.Screen options={{ title: 'Ev' }} />
@@ -11,7 +16,6 @@ function Home() {
     </>
   );
 }
-
 export default Home;
 const styles = StyleSheet.create({
   container: {
