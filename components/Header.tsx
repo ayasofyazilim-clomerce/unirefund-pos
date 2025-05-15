@@ -11,7 +11,6 @@ export function Header(props: BottomTabHeaderProps | NativeStackHeaderProps) {
     <View
       style={{
         paddingHorizontal: 24,
-        paddingVertical: 12,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
