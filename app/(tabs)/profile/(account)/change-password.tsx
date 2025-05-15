@@ -10,7 +10,7 @@ function ChangePassword() {
       <Stack.Screen options={{ title: 'Şifre Değiştir' }} />
       <WebView
         source={{
-          uri: 'http://10.0.2.2:3000/tr/m/account/change-password',
+          uri: 'http://192.168.1.106:1234/tr/m/account/change-password',
           headers: {
             Authorization: accessToken,
           },
