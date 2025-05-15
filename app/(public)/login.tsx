@@ -21,8 +21,8 @@ import * as SecureStore from 'expo-secure-store';
 export default function Login() {
   const { tenant, setTenant, setProfile, setGrantedPolicies, setEnv, env } = useStore();
 
-  const [usernameInput, setUsernameInput] = useState('eren_o');
-  const [passwordInput, setPasswordInput] = useState('123Aa!');
+  const [usernameInput, setUsernameInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
 
   const [logoClickCount, setLogoClickCount] = useState(0);
 
