@@ -1,13 +1,12 @@
 import { AccountServiceClient } from '@ayasofyazilim/core-saas/AccountService';
-
-import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HEADERS = {
   'X-Requested-With': 'XMLHttpRequest',
   'Content-Type': 'application/json',
 };
 export async function getAccountServiceClient(customHeaders?: Record<string, string>) {
-  const accessToken = (await SecureStore.getItemAsync('accessToken')) || undefined;
+  const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
 
   return new AccountServiceClient({
     TOKEN: accessToken,
