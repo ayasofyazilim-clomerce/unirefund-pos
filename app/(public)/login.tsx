@@ -135,7 +135,6 @@ export default function Login() {
               {loginError}
             </HelperText>
             <SubmitButton
-              className="mt-4"
               mode="contained"
               onSubmit={loginFunction}
               icon={'login'}

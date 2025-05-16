@@ -7,7 +7,7 @@ const HEADERS = {
 };
 
 export const ENVIRONMENT = {
-  dev: 'http://192.168.1.106:1234',
+  dev: 'http://81.213.78.69:1441',
   live: 'https://uat.unirefund.com',
 };
 

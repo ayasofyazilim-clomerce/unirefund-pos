@@ -16,7 +16,7 @@ export default function RootLayout() {
             headerShown: false,
             contentStyle: { backgroundColor: '#fff' },
           }}>
-          <Stack.Screen name="splash" />
+          <Stack.Screen name="index" />
           <Stack.Screen name="(public)" />
           <Stack.Screen name="(tabs)" />
         </Stack>

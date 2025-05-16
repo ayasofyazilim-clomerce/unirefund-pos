@@ -7,5 +7,6 @@
     "**/Thumbs.db": true,
     "**/node_modules": true
   },
-  "explorerExclude.backup": {}
+  "explorerExclude.backup": {},
+  "hide-files.files": []
 }

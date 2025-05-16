@@ -10,7 +10,7 @@ import { ENVIRONMENT } from '~/actions/lib';
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const { setProfile, setGrantedPolicies, setAccessToken } = useStore();
+  const { setProfile, setGrantedPolicies, setAccessToken, setEnv } = useStore();
 
   function redirectToLogin() {
     router.replace('/(public)/login');
@@ -38,6 +38,8 @@ export default function App() {
       const accessToken = await AsyncStorage.getItem('accessToken');
       const env = ((await SecureStore.getItemAsync('env')) || 'live') as 'dev' | 'live';
       await fetch(`${ENVIRONMENT[env]}/api/m/?access_token=${accessToken}`);
+
+      setEnv(env);
       setAccessToken(accessToken);
 
       setProfile(userProfile);
