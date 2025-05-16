@@ -1,39 +1,70 @@
+import { FlatList, View, Text, ActivityIndicator, RefreshControl } from 'react-native';
+
 import { Stack } from 'expo-router';
+import { useNotifications } from '@novu/react-native';
 
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Appbar } from 'react-native-paper';
-import { ListItem, ListView } from '~/components/ListView';
-import QRModal from './qr-modal';
+function YourCustomInbox() {
+  const { notifications, isLoading, fetchMore, hasMore, refetch, error } = useNotifications();
+  if (error) {
+    return (
+      <View>
+        <Text>Error: {error.message}</Text>
+      </View>
+    );
+  }
+  const renderItem = ({ item }) => (
+    <View>
+      <Text>{item.body}</Text>
+    </View>
+  );
 
-export default function Notifications() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const renderFooter = () => {
+    if (!hasMore) return null;
+
+    return (
+      <View>
+        <ActivityIndicator size="small" color="#2196F3" />
+      </View>
+    );
+  };
+
+  const renderEmpty = () => (
+    <View>
+      <Text>No updates available</Text>
+    </View>
+  );
+
+  if (isLoading) {
+    return (
+      <View>
+        <ActivityIndicator size="large" color="#2196F3" />
+      </View>
+    );
+  }
+
+  return (
+    <FlatList
+      data={notifications}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      onEndReached={fetchMore}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={renderFooter}
+      ListEmptyComponent={renderEmpty}
+      refreshControl={
+        <RefreshControl refreshing={isLoading} onRefresh={refetch} colors={['#2196F3']} />
+      }
+    />
+  );
+}
+
+function AccountSettings() {
   return (
     <>
-      <Stack.Screen
-        options={{
-          title: 'Ev',
-        }}
-      />
-      <View style={styles.container}>
-        <ListView title="Hesap ayarları">
-          <ListItem title="Hesap bilgileri" icon="account-circle-outline" />
-          <ListItem title="Şifre değiştir" icon="lock-outline" />
-          <ListItem title="Bildirim tercihleri" icon="bell-badge-outline" />
-        </ListView>
-        <ListView title="Diğer">
-          <ListItem title="Destek" icon="help-circle-outline" />
-          <ListItem title="Çıkış Yap" icon="exit-to-app" />
-        </ListView>
-      </View>
-      <QRModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      <Stack.Screen options={{ title: 'Hesap Ayarları' }} />
+      <YourCustomInbox />
     </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-  },
-});
+export default AccountSettings;

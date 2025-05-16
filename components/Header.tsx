@@ -22,6 +22,7 @@ export function Header(props: BottomTabHeaderProps | NativeStackHeaderProps) {
         {'headerBackVisible' in props.options && (
           <IconButton
             icon="arrow-left"
+            contentStyle={{ alignItems: 'flex-start' }}
             size={24}
             onPress={() => {
               router.back();
