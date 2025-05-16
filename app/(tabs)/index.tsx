@@ -1,32 +1,22 @@
-import { router, Stack } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
-import { logoutUser } from '~/actions/auth/actions';
-import SubmitButton from '~/components/Button/SubmitButton';
+import { Stack } from 'expo-router';
+import { useEffect, useRef } from 'react';
 
-export default function Home() {
-  async function logoutAndRedirect() {
-    await logoutUser();
-    // Redirect to login screen
-    router.replace('/login');
-  }
+import { WebView } from 'react-native-webview';
+import { StyleSheet, Text, View } from 'react-native';
+import { useStore } from '~/store/store';
+function Home() {
+  const { accessToken } = useStore();
 
   return (
     <>
       <Stack.Screen options={{ title: 'Ev' }} />
       <View style={styles.container}>
-        l
-        <SubmitButton
-          className="mt-4"
-          mode="contained"
-          onSubmit={logoutAndRedirect}
-          icon={'chevron-right'}>
-          Çıkış Yap
-        </SubmitButton>
+        <Text>Ana Sayfa</Text>
       </View>
     </>
   );
 }
-
+export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

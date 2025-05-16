@@ -1,26 +1,26 @@
-import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { Store } from '~/store/types';
 import { getGrantedPoliciesApi, getUserProfileApi } from '../AccountService/actions';
-import type { Store } from '~/store/store';
+import { ENVIRONMENT } from '../lib';
+import * as SecureStore from 'expo-secure-store';
 
 export async function checkIsLoggedIn() {
-  const accessToken = await SecureStore.getItemAsync('accessToken');
+  const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
   if (!accessToken) {
     return false;
   }
   return true;
 }
-export async function logoutUser() {
-  await SecureStore.deleteItemAsync('accessToken');
-  await AsyncStorage.removeItem('refreshToken');
-}
+
 export async function loginWithCredentials(username: string, password: string, tenantId?: string) {
   try {
+    const env = (await SecureStore.getItemAsync('env')) as Store['env'];
     const response = await fetch('https://api.unirefund.com/connect/token', {
       method: 'POST',
       headers: {
+        'X-Requested-With': 'XMLHttpRequest',
         'Content-Type': 'application/x-www-form-urlencoded',
-        __tenant: tenantId || '',
+        ...(tenantId ? { __tenant: tenantId } : {}),
       },
       body: new URLSearchParams({
         username: username,
@@ -28,28 +28,30 @@ export async function loginWithCredentials(username: string, password: string, t
         client_id: 'Angular',
         grant_type: 'password',
         scope:
-          'openid offline_access email profile phone roles address AccountService IdentityService AdministrationService SaasService SettingService TravellerService LocationService ContractService CRMService TagService ExportValidationService RefundService FinanceService',
+          'openid offline_access email profile phone roles address AdministrationService AccountService IdentityService SaasService SettingService TravellerService LocationService ContractService CRMService TagService RefundService ExportValidationService FinanceService ReportService FileService',
       }).toString(),
     });
     const data = await response.json();
-
     if (!response.ok) {
-      throw new Error('Login failed');
+      if (data.error_description) {
+        return data.error_description as string;
+      }
+      return 'Unknown error';
     }
-
-    await SecureStore.setItemAsync('accessToken', data.access_token);
     await AsyncStorage.setItem('refreshToken', data.refresh_token);
+    await AsyncStorage.setItem('accessToken', data.access_token);
+    await fetch(`${ENVIRONMENT[env]}/api/m/?access_token=${data.access_token}`);
     return true;
   } catch (error) {
     console.error('Login error:', error);
-    return false;
+    return 'Unknown error';
   }
 }
 export async function fetchNewAccessTokenByRefreshToken() {
   try {
     const refreshToken = await AsyncStorage.getItem('refreshToken');
     if (!refreshToken) {
-      await SecureStore.deleteItemAsync('accessToken');
+      await AsyncStorage.removeItem('accessToken');
       throw new Error('No refresh token found');
     }
     const response = await fetch('https://api.unirefund.com/connect/token', {
@@ -69,7 +71,6 @@ export async function fetchNewAccessTokenByRefreshToken() {
       throw new Error('Login failed');
     }
 
-    await SecureStore.setItemAsync('accessToken', data.access_token);
     await AsyncStorage.setItem('refreshToken', data.refresh_token);
     return true;
   } catch (error) {
@@ -82,7 +83,6 @@ export async function getUserData(
   setGrantedPolicies: Store['setGrantedPolicies']
 ) {
   const userProfile = await getUserProfileApi();
-  console.log(userProfile);
   if (!userProfile) {
     console.error('Error fetching user profile:', userProfile);
     return false;
