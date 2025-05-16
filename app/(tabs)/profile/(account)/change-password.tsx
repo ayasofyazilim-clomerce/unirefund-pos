@@ -1,24 +1,11 @@
 import { Stack } from 'expo-router';
-
-import { WebView } from 'react-native-webview';
-import { ENVIRONMENT } from '~/actions/lib';
-import { useStore } from '~/store/store';
+import WebView from '~/components/WebView';
 
 function ChangePassword() {
-  const { accessToken, env } = useStore();
   return (
     <>
       <Stack.Screen options={{ title: 'Şifre Değiştir' }} />
-      <WebView
-        source={{
-          uri: `${ENVIRONMENT[env]}/tr/m/account/change-password`,
-          headers: {
-            Authorization: accessToken,
-          },
-        }}
-        javaScriptEnabled={true}
-        startInLoadingState={true}
-      />
+      <WebView url="tr/m/account/change-password" />
     </>
   );
 }
