@@ -1,11 +1,15 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 
 import { StyleSheet, Text, View } from 'react-native';
+import SubmitButton from '~/components/Button.Submit';
 import Stepper from '~/components/Stepper';
+import { useStore } from '~/store/store';
 function RegistrationFlow() {
+  const { profile, setProfile, setGrantedPolicies } = useStore();
+  const isProfileCompleted = !!profile?.name && !!profile?.surname && !!profile.phoneNumber;
   return (
     <>
-      <Stack.Screen options={{ title: 'Ev', headerShown: false }} />
+      <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.container}>
         <View className="mb-4">
           <Text className="text-base font-semibold text-black">
@@ -18,18 +22,15 @@ function RegistrationFlow() {
           title={'Hesap oluştur'}
           description={'Hesabını başarıyla oluşturdun.'}
           completed={true}
-          onPress={() => {
-            console.log(1);
-          }}
         />
         <Stepper
           step={2}
           title={'Profilini tamamla'}
           description={'Kisisel bilgilerini girerek profilini tamamla'}
-          completed={false}
+          completed={isProfileCompleted}
           disabled={false}
           onPress={() => {
-            console.log(2);
+            router.push('/(public)/(register)/complete-profile');
           }}
         />
         <Stepper
@@ -37,11 +38,21 @@ function RegistrationFlow() {
           title={'Pasaport doğrulaması'}
           description={'Profil bilgilerini doğrulamak için pasaportunuzu okutun.'}
           completed={false}
-          disabled={true}
+          disabled={!isProfileCompleted || true}
           onPress={() => {
             console.log(3);
           }}
         />
+        <View className="mt-4">
+          <SubmitButton
+            mode="contained"
+            icon={'arrow-right'}
+            contentStyle={{ flexDirection: 'row-reverse' }}
+            onSubmit={async () => router.replace('/(tabs)')}
+            disabled={!isProfileCompleted}>
+            Uygulamaya devam et
+          </SubmitButton>
+        </View>
       </View>
     </>
   );
