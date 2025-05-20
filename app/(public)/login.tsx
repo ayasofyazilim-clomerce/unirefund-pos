@@ -27,8 +27,10 @@ export default function Login() {
 
   const [logoClickCount, setLogoClickCount] = useState(0);
 
-  const [loginError, setLoginError] = useState<string | null>(null);
-  const [loginDisabled, setLoginDisabled] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+
+  const isSubmitDisabled = !usernameInput || !passwordInput || submitDisabled;
 
   useEffect(() => {
     if (logoClickCount > 5) {
@@ -37,7 +39,7 @@ export default function Login() {
     }
   }, [logoClickCount]);
   async function loginFunction() {
-    setLoginDisabled(true);
+    setSubmitDisabled(true);
     try {
       await SecureStore.setItemAsync('env', env);
       const loginStatus = await loginWithCredentials(
@@ -46,7 +48,7 @@ export default function Login() {
         tenant?.tenantId || ''
       );
       if (loginStatus !== true) {
-        setLoginError(loginStatus);
+        setSubmitError(loginStatus);
       }
       const userData = await getUserData(setProfile, setGrantedPolicies);
       if (loginStatus === true && userData) {
@@ -63,8 +65,8 @@ export default function Login() {
   }
 
   function onInputChange() {
-    setLoginDisabled(false);
-    setLoginError(null);
+    setSubmitDisabled(false);
+    setSubmitError(null);
   }
 
   return (
@@ -140,14 +142,14 @@ export default function Login() {
               />
             </View>
 
-            <HelperText type="error" visible={loginDisabled} className={'-mx-2 p-0'}>
-              {loginError}
+            <HelperText type="error" visible={submitDisabled} className={'-mx-2 p-0'}>
+              {submitError}
             </HelperText>
             <SubmitButton
               mode="contained"
               onSubmit={loginFunction}
               icon={'login'}
-              disabled={loginDisabled}>
+              disabled={isSubmitDisabled}>
               Giriş Yap
             </SubmitButton>
             <SubmitButton
@@ -156,7 +158,7 @@ export default function Login() {
               mode="outlined"
               icon={'account-plus'}
               onSubmit={async () => router.replace('/(public)/(register)')}
-              disabled={loginDisabled}>
+              disabled={isSubmitDisabled}>
               Kayıt Ol
             </SubmitButton>
           </View>

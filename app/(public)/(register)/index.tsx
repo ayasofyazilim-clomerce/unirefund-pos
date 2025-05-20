@@ -26,15 +26,17 @@ export default function Register() {
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  const [loginError, setLoginError] = useState<string | null>(null);
-  const [loginDisabled, setLoginDisabled] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
-  async function loginFunction() {
-    setLoginDisabled(true);
+  const isSubmitDisabled = !usernameInput || !passwordInput || !emailInput || submitDisabled;
+
+  async function signUpFunction() {
+    setSubmitDisabled(true);
     try {
       const registerStatus = await signUp(emailInput, usernameInput, passwordInput);
       if ('type' in registerStatus && registerStatus.type === 'error') {
-        setLoginError(registerStatus.message);
+        setSubmitError(registerStatus.message);
         return;
       }
       const loginStatus = await loginWithCredentials(
@@ -44,7 +46,7 @@ export default function Register() {
       );
 
       if (loginStatus !== true) {
-        setLoginError(loginStatus);
+        setSubmitError(loginStatus);
       }
       if (loginStatus === true && (await getUserData(setProfile, setGrantedPolicies))) {
         router.replace('/registration-flow');
@@ -56,8 +58,8 @@ export default function Register() {
   }
 
   function onInputChange() {
-    setLoginDisabled(false);
-    setLoginError(null);
+    setSubmitDisabled(false);
+    setSubmitError(null);
   }
 
   return (
@@ -115,8 +117,8 @@ export default function Register() {
               />
             </View>
 
-            <HelperText type="error" visible={loginDisabled} className={'-mx-2 p-0'}>
-              {loginError}
+            <HelperText type="error" visible={submitDisabled} className={'-mx-2 p-0'}>
+              {submitError}
             </HelperText>
 
             <SubmitButton
@@ -124,8 +126,8 @@ export default function Register() {
               mode="contained"
               icon={'arrow-right'}
               contentStyle={{ flexDirection: 'row-reverse' }}
-              onSubmit={loginFunction}
-              disabled={loginDisabled}>
+              onSubmit={signUpFunction}
+              disabled={isSubmitDisabled}>
               Hesap Oluştur
             </SubmitButton>
           </View>
