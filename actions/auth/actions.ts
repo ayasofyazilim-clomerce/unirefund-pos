@@ -91,5 +91,5 @@ export async function getUserData(
   setProfile(userProfile);
   const grantedPolicies = await getGrantedPoliciesApi();
   setGrantedPolicies(grantedPolicies);
-  return true;
+  return userProfile;
 }

@@ -48,8 +48,13 @@ export default function Login() {
       if (loginStatus !== true) {
         setLoginError(loginStatus);
       }
-      if (loginStatus === true && (await getUserData(setProfile, setGrantedPolicies))) {
-        router.replace('/(tabs)');
+      const userData = await getUserData(setProfile, setGrantedPolicies);
+      if (loginStatus === true && userData) {
+        if (userData.name) {
+          router.replace('/(tabs)');
+          return;
+        }
+        router.replace('/(public)/(register)/registration-flow');
         return;
       }
     } catch (error) {
