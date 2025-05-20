@@ -8,7 +8,7 @@ type StepperProps = {
   description: string;
   completed: boolean;
   disabled?: boolean;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 export default function Stepper({
@@ -39,7 +39,7 @@ export default function Stepper({
     if (disabled || completed) {
       return;
     }
-    onPress();
+    onPress?.();
   }
   return (
     <Pressable
