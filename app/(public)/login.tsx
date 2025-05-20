@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Button, Chip, HelperText, Icon, SegmentedButtons } from 'react-native-paper';
+import { Button, Chip, HelperText, Icon, SegmentedButtons, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
 import SubmitButton from '~/components/Button.Submit';
@@ -21,6 +21,7 @@ import * as SecureStore from 'expo-secure-store';
 export default function Login() {
   const { tenant, setTenant, setProfile, setGrantedPolicies, setEnv, env } = useStore();
 
+  const [showPassword, setShowPassword] = useState(false);
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
@@ -63,11 +64,6 @@ export default function Login() {
 
   return (
     <SafeAreaView className="flex-1" edges={['bottom']}>
-      <Stack.Screen
-        options={{
-          title: 'Giriş Yap',
-        }}
-      />
       <View className="px-6 pt-8">
         <SegmentedButtons
           value={env}
@@ -116,18 +112,26 @@ export default function Login() {
                 mode="outlined"
                 label="Email"
                 value={usernameInput}
+                left={<TextInput.Icon icon="email-outline" />}
                 onChangeText={(text) => setUsernameInput(text)}
                 onChange={onInputChange}
               />
             </View>
-            <View className="flex flex-row">
+            <View className="mt-3 flex flex-row">
               <Input
                 mode="outlined"
                 label="Şifre"
                 value={passwordInput}
                 onChangeText={(text) => setPasswordInput(text)}
                 onChange={onInputChange}
-                secureTextEntry={true}
+                secureTextEntry={!showPassword}
+                left={<TextInput.Icon icon="lock-outline" />}
+                right={
+                  <TextInput.Icon
+                    icon={showPassword ? 'eye-off' : 'eye'}
+                    onPress={() => setShowPassword(!showPassword)}
+                  />
+                }
               />
             </View>
 
@@ -146,7 +150,7 @@ export default function Login() {
               labelStyle={{ color: '#71717a' }}
               mode="outlined"
               icon={'account-plus'}
-              onSubmit={loginFunction}
+              onSubmit={async () => router.replace('/(public)/(register)')}
               disabled={loginDisabled}>
               Kayıt Ol
             </SubmitButton>
