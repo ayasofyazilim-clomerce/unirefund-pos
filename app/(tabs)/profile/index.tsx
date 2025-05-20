@@ -2,13 +2,16 @@ import { router, Stack } from 'expo-router';
 
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Avatar, Text } from 'react-native-paper';
 import { logoutUser } from '~/actions/auth/logoutUser';
 import { ListItem, ListView } from '~/components/ListView';
+import { useStore } from '~/store/store';
 import QRModal from './qr-modal';
 
 export default function Profile() {
+  const { profile } = useStore();
   const [modalVisible, setModalVisible] = useState(false);
-
+  const { initials, fullName } = avatarPlaceholder();
   async function logoutAndRedirect() {
     await logoutUser();
     if (router.canDismiss()) {
@@ -17,6 +20,28 @@ export default function Profile() {
     router.replace('/(public)/login');
   }
 
+  function avatarPlaceholder() {
+    let initials = '';
+    let fullName = '';
+
+    if (profile?.name && profile?.surname) {
+      fullName = `${profile?.name} ${profile?.surname}`;
+    }
+    if (profile?.userName) {
+      fullName = profile?.userName;
+    }
+
+    initials = fullName
+      .split(' ')
+      .map((word) => word[0])
+      .join('')
+      .toLocaleUpperCase();
+
+    return {
+      initials,
+      fullName,
+    };
+  }
   return (
     <>
       <Stack.Screen
@@ -25,6 +50,10 @@ export default function Profile() {
         }}
       />
       <View style={styles.container}>
+        <View className="mb-6 flex-col items-center justify-between gap-3">
+          <Avatar.Text size={128} label={initials} />
+          <Text className="text-lg font-bold">{fullName}</Text>
+        </View>
         <ListView title="Hesap ayarları">
           <ListItem
             title="Hesap bilgileri"
