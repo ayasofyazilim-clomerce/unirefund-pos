@@ -47,7 +47,7 @@ export default function Register() {
         setLoginError(loginStatus);
       }
       if (loginStatus === true && (await getUserData(setProfile, setGrantedPolicies))) {
-        router.replace('/(tabs)');
+        router.replace('/registration-flow');
         return;
       }
     } catch (error) {
