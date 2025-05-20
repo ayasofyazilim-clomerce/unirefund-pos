@@ -36,7 +36,7 @@ export default function Stepper({
   const iconSource = completed ? 'check' : disabled ? 'lock' : 'arrow-right';
 
   function handlePress() {
-    if (disabled) {
+    if (disabled || completed) {
       return;
     }
     onPress();
