@@ -4,7 +4,6 @@
     "slug": "unirefund-mobile",
     "version": "1.0.0",
     "scheme": "unirefund-mobile",
-
     "plugins": [
       "expo-router",
       [
@@ -18,7 +17,6 @@
         {
           "backgroundColor": "#232323",
           "image": "./assets/unirefund.png",
-
           "imageWidth": 200
         }
       ],
@@ -38,13 +36,26 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.unirefund.mobile",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "android": {
-      "package": "com.unirefund.unirefundmobile",
+      "package": "com.unirefund.mobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/unirefund.png",
         "backgroundColor": "#ffffff"
+      }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "024912fd-2a4b-4985-a77c-4320409eb075"
       }
     }
   }

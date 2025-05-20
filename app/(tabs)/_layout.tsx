@@ -12,7 +12,7 @@ export default function TabLayout() {
     <NovuProvider
       subscriber="008f528-e16d-73e3-511d-3a17dd3174d2"
       applicationIdentifier="4o6o47EJm5yN"
-      apiUrl="http://81.213.78.69:1466/api"
+      apiUrl="https://novuapi.clomerce.com"
       // socketUrl="https://ws.novu.co"
     >
       <Tabs
