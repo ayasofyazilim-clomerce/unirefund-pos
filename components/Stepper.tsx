@@ -7,7 +7,7 @@ type StepperProps = {
   title: string;
   description: string;
   completed: boolean;
-  disabled: boolean;
+  disabled?: boolean;
   onPress: () => void;
 };
 
@@ -52,7 +52,7 @@ export default function Stepper({
       </View>
       <View className="ml-4 flex-1">
         <Text className={`text-lg font-semibold ${textColor}`}>{title}</Text>
-        <Text className={`mt-1 ${textDescriptionColor}`}> {description}</Text>
+        <Text className={`mt-1 ${textDescriptionColor}`}>{description}</Text>
       </View>
       <View className="ml-auto">
         <Icon source={iconSource} size={20} color={iconColor} />
