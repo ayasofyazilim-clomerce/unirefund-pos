@@ -1,7 +1,7 @@
 import { ApiError } from '@ayasofyazilim/core-saas/AccountService';
 
 import { useEffect, useState } from 'react';
-import { fetchNewAccessTokenByRefreshToken } from '~/actions/auth/actions';
+import { fetchNewAccessTokenByRefreshToken } from '~/actions/auth/fetchNewAccessToken';
 
 export function useFetch<T>(request: () => Promise<T>) {
   const [isLoading, setIsLoading] = useState(true);

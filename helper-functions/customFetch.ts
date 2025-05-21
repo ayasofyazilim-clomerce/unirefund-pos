@@ -1,6 +1,6 @@
 import { ApiError } from '@ayasofyazilim/core-saas/AccountService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchNewAccessTokenByRefreshToken } from '~/actions/auth/actions';
+import { fetchNewAccessTokenByRefreshToken } from '~/actions/auth/fetchNewAccessToken';
 
 export async function fetchRequest<T>(request: () => Promise<T>) {
   try {
