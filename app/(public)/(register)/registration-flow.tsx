@@ -7,6 +7,13 @@ import { useStore } from '~/store/store';
 function RegistrationFlow() {
   const { profile, setProfile, setGrantedPolicies } = useStore();
   const isProfileCompleted = !!profile?.name && !!profile?.surname && !!profile.phoneNumber;
+
+  async function redirectToHome() {
+    if (router.canDismiss()) {
+      router.dismissAll();
+    }
+    router.replace('/(tabs)');
+  }
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
@@ -48,7 +55,7 @@ function RegistrationFlow() {
             mode="contained"
             icon={'arrow-right'}
             contentStyle={{ flexDirection: 'row-reverse' }}
-            onSubmit={async () => router.replace('/(tabs)')}
+            onSubmit={async () => redirectToHome()}
             disabled={!isProfileCompleted}>
             Uygulamaya devam et
           </SubmitButton>
