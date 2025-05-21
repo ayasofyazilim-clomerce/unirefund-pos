@@ -158,7 +158,7 @@ export default function Login() {
               mode="outlined"
               icon={'account-plus'}
               onSubmit={async () => router.replace('/(public)/(register)')}
-              disabled={isSubmitDisabled}>
+              disabled={submitDisabled}>
               Kayıt Ol
             </SubmitButton>
           </View>
