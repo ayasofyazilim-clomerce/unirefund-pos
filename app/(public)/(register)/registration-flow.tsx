@@ -1,6 +1,7 @@
 import { router, Stack } from 'expo-router';
 
 import { StyleSheet, Text, View } from 'react-native';
+import { logoutUser } from '~/actions/auth/logoutUser';
 import SubmitButton from '~/components/Button.Submit';
 import Stepper from '~/components/Stepper';
 import { useStore } from '~/store/store';
@@ -13,6 +14,13 @@ function RegistrationFlow() {
       router.dismissAll();
     }
     router.replace('/(tabs)');
+  }
+  async function redirectToLogin() {
+    if (router.canDismiss()) {
+      router.dismissAll();
+    }
+    await logoutUser();
+    router.replace('/login');
   }
   return (
     <>
@@ -45,9 +53,19 @@ function RegistrationFlow() {
           title={'Pasaport doğrulaması'}
           description={'Profil bilgilerini doğrulamak için pasaportunuzu okutun.'}
           completed={false}
-          disabled={!isProfileCompleted || true}
+          disabled={!isProfileCompleted}
           onPress={() => {
-            console.log(3);
+            router.push('/(public)/(register)/scan-document');
+          }}
+        />
+        <Stepper
+          step={4}
+          title={'Yüz doğrulaması'}
+          description={'Profil bilgilerini doğrulamak için yüzünüzü tanıtın.'}
+          completed={false}
+          disabled={!isProfileCompleted} //!isProfileCompleted || !!profile.phoneNumberConfirmed}
+          onPress={() => {
+            router.push('/(public)/(register)/face-detection');
           }}
         />
         <View className="mt-4">
@@ -60,6 +78,17 @@ function RegistrationFlow() {
             Uygulamaya devam et
           </SubmitButton>
         </View>
+        {!isProfileCompleted && (
+          <View className="mt-4">
+            <SubmitButton
+              mode="outlined"
+              textColor="gray"
+              icon={'logout'}
+              onSubmit={async () => redirectToLogin()}>
+              Çıkış yap
+            </SubmitButton>
+          </View>
+        )}
       </View>
     </>
   );
