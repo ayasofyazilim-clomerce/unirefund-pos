@@ -17,6 +17,7 @@ import SubmitButton from '~/components/Button.Submit';
 import Input from '~/components/Input';
 import { useStore } from '~/store/store';
 import * as SecureStore from 'expo-secure-store';
+import { isProfileCompleted } from '~/actions/lib';
 
 export default function Login() {
   const { tenant, setTenant, setProfile, setGrantedPolicies, setEnv, env } = useStore();
@@ -52,7 +53,7 @@ export default function Login() {
       }
       const userData = await getUserData(setProfile, setGrantedPolicies);
       if (loginStatus === true && userData) {
-        if (userData.name) {
+        if (isProfileCompleted(userData)) {
           router.replace('/(tabs)');
           return;
         }

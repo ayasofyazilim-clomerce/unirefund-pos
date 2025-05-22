@@ -5,7 +5,7 @@ import { checkIsLoggedIn } from '~/actions/auth/actions';
 import { useStore } from '~/store/store';
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ENVIRONMENT } from '~/actions/lib';
+import { ENVIRONMENT, isProfileCompleted } from '~/actions/lib';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,10 +51,8 @@ export default function App() {
       setProfile(userProfile);
       const grantedPolicies = await getGrantedPoliciesApi();
       setGrantedPolicies(grantedPolicies);
-      const isProfileCompleted =
-        !!userProfile?.name && !!userProfile?.surname && !!userProfile.phoneNumber;
 
-      if (!isProfileCompleted) {
+      if (!isProfileCompleted(userProfile)) {
         redirectToRegistrationFlow();
         return;
       }
@@ -66,6 +64,7 @@ export default function App() {
   }
   useEffect(() => {
     console.log('App initialized');
+
     // Check is user logged in or not
     // If user is logged in, navigate to the main screen
     // If user is not logged in, navigate to the login screen
