@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { parse, ParseResult } from 'mrz';
@@ -21,46 +21,46 @@ function ScanDocument() {
   const [permission, requestPermission] = useCameraPermissions();
 
   const [result, setResult] = useState<ParseResult | undefined>(undefined);
-  function doJob() {
+  function doJob(timer: NodeJS.Timeout) {
     if (cameraRef.current) {
-      cameraRef.current?.takePictureAsync({ skipProcessing: false }).then((data) => {
-        if (data) {
-          console.log('test98');
-          MlkitOcr.detectFromUri(data.uri).then((recognizedText) => {
-            const fullText = recognizedText
-              .map((t) => t.text)
-              .join('\n')
-              .replaceAll(' ', '');
-            const lines = fullText.split(/\r?\n/);
-            console.log(lines, fullText);
-            while (lines.length > 0) {
-              if (!lines[0].startsWith('I')) {
-                lines.shift();
-                continue;
+      cameraRef.current
+        ?.takePictureAsync({ skipProcessing: false, shutterSound: false })
+        .then((data) => {
+          if (data) {
+            MlkitOcr.detectFromUri(data.uri).then((recognizedText) => {
+              const fullText = recognizedText
+                .map((t) => t.text)
+                .join('\n')
+                .replaceAll(' ', '');
+              const lines = fullText.split(/\r?\n/);
+              while (lines.length > 0) {
+                if (!lines[0].startsWith('I')) {
+                  lines.shift();
+                  continue;
+                }
+                break;
               }
-              break;
-            }
-            if (lines.length >= 3) {
-              const res = lines[0] + '\n' + lines[1] + '\n' + lines[2];
-              try {
-                const result = parse(res);
-                setResult(result);
-              } catch (error) {
-                console.log(error);
+              if (lines.length >= 3) {
+                const res = lines[0] + '\n' + lines[1] + '\n' + lines[2];
+                try {
+                  const result = parse(res);
+                  setResult(result);
+                  clearInterval(timer);
+                } catch (error) {
+                  console.log(error);
+                }
               }
-              // clearInterval(timer);
-            }
-          });
-        }
-      });
+            });
+          }
+        });
     }
   }
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-
-  //   }, 10000);
-  //   return () => clearInterval(timer);
-  // }, []);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      doJob(timer);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
 
   if (!permission) {
     return <View />;
@@ -83,7 +83,13 @@ function ScanDocument() {
 
   return (
     <View style={{ flex: 1 }}>
-      <CameraView ref={cameraRef} style={{ flex: 1 }} facing="back" mode="picture" autofocus="on">
+      <CameraView
+        ref={cameraRef}
+        style={{ flex: 1 }}
+        facing="back"
+        mode="picture"
+        autofocus="on"
+        animateShutter={false}>
         <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
           <View className="absolute z-10 mt-4 flex-row justify-start px-6">
             <Button
@@ -98,8 +104,8 @@ function ScanDocument() {
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} />
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} />
-            <Pressable
-              onPress={() => doJob()}
+            <View
+              // onPress={() => doJob()}
               style={{
                 width: borderWidth,
                 height: borderHeight,
@@ -113,8 +119,8 @@ function ScanDocument() {
                 style={{ color: 'white', fontSize: 20, textAlign: 'center', fontWeight: 'bold' }}>
                 Kimliğinizi bu alana yerleştirin
               </Text>
-            </Pressable>
-            <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} />
+            </View>
+            {/* <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} /> */}
           </View>
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} />
         </View>
