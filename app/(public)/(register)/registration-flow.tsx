@@ -5,6 +5,7 @@ import { logoutUser } from '~/actions/auth/logoutUser';
 import SubmitButton from '~/components/Button.Submit';
 import Stepper from '~/components/Stepper';
 import { useStore } from '~/store/store';
+
 function RegistrationFlow() {
   const { profile, setProfile, setGrantedPolicies } = useStore();
   const isProfileCompleted = !!profile?.name && !!profile?.surname && !!profile.phoneNumber;

@@ -1,7 +1,6 @@
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
 import { Camera, useCameraDevice, useFrameProcessor } from 'react-native-vision-camera';
 import {
   Face,

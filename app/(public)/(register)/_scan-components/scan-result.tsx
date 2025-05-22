@@ -1,33 +1,20 @@
-import { router, Stack } from 'expo-router';
 import { ParseResult } from 'mrz';
-import { useState } from 'react';
 
 import {
   Keyboard,
   KeyboardAvoidingView,
-  Text,
   Platform,
   StyleSheet,
+  Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { ICountry, isValidPhoneNumber } from 'react-native-international-phone-number';
-import { HelperText, TextInput } from 'react-native-paper';
-import { getUserData } from '~/actions/auth/actions';
-import { editProfile } from '~/actions/auth/register';
 import SubmitButton from '~/components/Button.Submit';
-import Input, { InputPhone } from '~/components/Input';
-import { useStore } from '~/store/store';
 
 function ScanResult({ parseResult }: { parseResult: ParseResult }) {
-  const { profile, setProfile, setGrantedPolicies } = useStore();
-
   async function onSubmit() {}
   return (
     <>
-      <Stack.Screen
-        options={{ title: 'Profilini Tamamla', headerShown: true, headerBackTitle: 'Geri' }}
-      />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>

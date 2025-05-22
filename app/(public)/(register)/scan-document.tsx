@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import { router } from 'expo-router';
 import { parse, ParseResult } from 'mrz';
 import { useRef } from 'react';
-import { Dimensions, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MlkitOcr from 'react-native-mlkit-ocr';
-import { useStore } from '~/store/store';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from 'react-native-paper';
-import { router } from 'expo-router';
+import { useStore } from '~/store/store';
 import ScanResult from './_scan-components/scan-result';
 
 const borderWidth = Dimensions.get('window').width - 20;
