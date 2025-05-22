@@ -8,7 +8,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import { Button } from 'react-native-paper';
 import { useStore } from '~/store/store';
-import ScanResult from '../../../components/pages/scan-result';
+import ScanResult from '~/components/pages/scan-result';
 
 const borderWidth = Dimensions.get('window').width - 20;
 const borderHeight = borderWidth / 1.6;
