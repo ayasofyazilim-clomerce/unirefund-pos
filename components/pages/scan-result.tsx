@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import SubmitButton from '~/components/Button.Submit';
+import SubmitButton from '~/components/ui/Button.Submit';
 
 function ScanResult({ parseResult }: { parseResult: ParseResult }) {
   async function onSubmit() {}

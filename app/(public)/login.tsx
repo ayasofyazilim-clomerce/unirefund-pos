@@ -13,8 +13,8 @@ import {
 import { Button, Chip, HelperText, Icon, SegmentedButtons, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
-import SubmitButton from '~/components/Button.Submit';
-import Input from '~/components/Input';
+import SubmitButton from '~/components/ui/Button.Submit';
+import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';
 import * as SecureStore from 'expo-secure-store';
 import { isProfileCompleted } from '~/actions/lib';

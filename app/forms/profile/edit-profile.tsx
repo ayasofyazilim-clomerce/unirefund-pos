@@ -13,8 +13,8 @@ import { ICountry, isValidPhoneNumber } from 'react-native-international-phone-n
 import { HelperText, TextInput } from 'react-native-paper';
 import { getUserData } from '~/actions/auth/actions';
 import { editProfile } from '~/actions/auth/register';
-import SubmitButton from '~/components/Button.Submit';
-import Input, { InputPhone } from '~/components/Input';
+import SubmitButton from '~/components/ui/Button.Submit';
+import Input, { InputPhone } from '~/components/ui/Input';
 import { useStore } from '~/store/store';
 
 export default function EditProfileForm() {

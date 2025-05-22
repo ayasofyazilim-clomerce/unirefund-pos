@@ -2,8 +2,8 @@ import { router, Stack } from 'expo-router';
 
 import { StyleSheet, Text, View } from 'react-native';
 import { logoutUser } from '~/actions/auth/logoutUser';
-import SubmitButton from '~/components/Button.Submit';
-import Stepper from '~/components/Stepper';
+import SubmitButton from '~/components/ui/Button.Submit';
+import Stepper from '~/components/ui/Stepper';
 import { useStore } from '~/store/store';
 
 function RegistrationFlow() {

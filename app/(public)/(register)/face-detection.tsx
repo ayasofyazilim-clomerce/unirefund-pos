@@ -8,7 +8,7 @@ import {
   useFaceDetector,
 } from 'react-native-vision-camera-face-detector';
 import { Worklets } from 'react-native-worklets-core';
-import { CircularProgress } from '~/components/CircularProgress';
+import { CircularProgress } from '~/components/ui/CircularProgress';
 
 function FaceDetection() {
   const [livenessTest, setLivenessTest] = useState({

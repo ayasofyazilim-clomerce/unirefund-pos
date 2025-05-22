@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Text } from 'react-native-paper';
 import { logoutUser } from '~/actions/auth/logoutUser';
-import { ListItem, ListView } from '~/components/ListView';
+import { ListItem, ListView } from '~/components/ui/ListView';
 import { useStore } from '~/store/store';
 import QRModal from './qr-modal';
 
@@ -58,7 +58,7 @@ export default function Profile() {
           <ListItem
             title="Hesap bilgileri"
             icon="account-circle-outline"
-            onPress={() => router.navigate('/(tabs)/profile/(account)/settings')}
+            onPress={() => router.navigate('/(tabs)/profile/(account)/edit-profile')}
           />
           <ListItem
             title="Şifre değiştir"

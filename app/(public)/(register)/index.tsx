@@ -13,8 +13,8 @@ import { Button, HelperText, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
 import { signUp } from '~/actions/auth/register';
-import SubmitButton from '~/components/Button.Submit';
-import Input from '~/components/Input';
+import SubmitButton from '~/components/ui/Button.Submit';
+import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';
 
 export default function Register() {
