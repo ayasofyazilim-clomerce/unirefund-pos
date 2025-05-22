@@ -1,6 +1,6 @@
 module.exports = function (api) {
   api.cache(true);
-  let plugins = [];
+  let plugins = ['react-native-worklets-core/plugin'];
 
   return {
     presets: [
