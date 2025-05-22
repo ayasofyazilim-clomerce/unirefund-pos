@@ -9,7 +9,7 @@ export default function Layout() {
         headerBackVisible: true,
         contentStyle: { backgroundColor: '#fff' },
       }}>
-      <Stack.Screen name="settings" options={{ title: 'Hesap Ayarları' }} />
+      <Stack.Screen name="edit-profile" options={{ title: 'Hesap Ayarları' }} />
       <Stack.Screen name="change-password" options={{ title: 'Şifre Değiştir' }} />
     </Stack>
   );
