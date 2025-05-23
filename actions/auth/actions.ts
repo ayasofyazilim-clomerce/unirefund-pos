@@ -43,7 +43,7 @@ export async function loginWithCredentials(username: string, password: string, t
     await fetch(`${ENVIRONMENT[env]}/api/m/?access_token=${data.access_token}`);
     return true;
   } catch (error) {
-    console.error('Login error:', error);
+    console.log('Login error:', error);
     return 'Unknown error';
   }
 }
@@ -54,7 +54,7 @@ export async function getUserData(
 ) {
   const userProfile = await getUserProfileApi();
   if (!userProfile) {
-    console.error('Error fetching user profile:', userProfile);
+    console.log('Error fetching user profile:', userProfile);
     return false;
   }
   setProfile(userProfile);

@@ -9,7 +9,7 @@ export async function getUserProfileApi() {
   }
   const response = await fetchRequest(getData);
   if (response instanceof Error) {
-    console.error('Error fetching user profile:', response);
+    console.log('Error fetching user profile:', response);
     return undefined;
   }
   return response;
@@ -24,7 +24,7 @@ export async function getGrantedPoliciesApi() {
   }
   const response = await fetchRequest(getData);
   if (response instanceof Error) {
-    console.error('Error fetching granted policies:', response);
+    console.log('Error fetching granted policies:', response);
     return undefined;
   }
   return response;
@@ -36,7 +36,7 @@ export async function getTenantByNameApi(name: string) {
   }
   const response = await fetchRequest(getData);
   if (response instanceof Error) {
-    console.error('Error fetching tenants:', response);
+    console.log('Error fetching tenants:', response);
     return undefined;
   }
   return response;

@@ -52,7 +52,7 @@ export default function Register() {
         return;
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.log('Login error:', error);
     }
   }
 

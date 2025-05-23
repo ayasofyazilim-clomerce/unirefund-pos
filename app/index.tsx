@@ -37,7 +37,7 @@ export default function App() {
       console.log('User is logged in');
       const userProfile = await getUserProfileApi();
       if (!userProfile) {
-        console.error('Error fetching user profile:', userProfile);
+        console.log('Error fetching user profile:', userProfile);
         redirectToLogin();
         return;
       }

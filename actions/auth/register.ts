@@ -19,7 +19,7 @@ export async function signUp(emailAddress: string, userName: string, password: s
     return response;
   } catch (error) {
     const err = error as { body: { error: { message: string } } };
-    console.error('Error during sign up:', error);
+    console.log('Error during sign up:', error);
     return {
       type: 'error' as const,
       message: err?.body?.error.message,
@@ -46,7 +46,7 @@ export async function editProfile(
     return response;
   } catch (error) {
     const err = error as { body: { error: { message: string } } };
-    console.error('Error during updating profile:', error);
+    console.log('Error during updating profile:', error);
     return {
       type: 'error' as const,
       message: err?.body?.error.message,

@@ -14,7 +14,7 @@ export async function fetchRequest<T>(request: () => Promise<T>) {
         if (await fetchNewAccessTokenByRefreshToken()) {
           return await fetchRequest(request);
         } else {
-          console.error('Failed to refresh token');
+          console.log('Failed to refresh token');
           await AsyncStorage.removeItem('refreshToken');
           await AsyncStorage.removeItem('accessToken');
           return new Error('Failed to refresh token');
