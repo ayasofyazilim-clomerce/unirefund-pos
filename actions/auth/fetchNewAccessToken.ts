@@ -28,7 +28,7 @@ export async function fetchNewAccessTokenByRefreshToken() {
     await AsyncStorage.setItem('refreshToken', data.refresh_token);
     return true;
   } catch (error) {
-    console.error('Login error:', error);
+    console.log('Login error:', error);
     return false;
   }
 }
