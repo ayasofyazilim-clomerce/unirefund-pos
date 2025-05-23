@@ -13,6 +13,7 @@
           }
         }
       ],
+      "expo-localization",
       "expo-router",
       [
         "expo-dev-launcher",
@@ -36,7 +37,6 @@
           "microphonePermissionText": "$(PRODUCT_NAME) needs access to your Microphone."
         }
       ],
-
       [
         "expo-splash-screen",
         {
@@ -46,7 +46,8 @@
         }
       ],
       "expo-secure-store",
-      "react-native-vision-camera"
+      "react-native-vision-camera",
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,
