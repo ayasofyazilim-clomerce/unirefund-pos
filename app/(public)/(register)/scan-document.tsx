@@ -1,25 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
 import { parse, ParseResult } from 'mrz';
 import { useRef } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Text, View } from 'react-native';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import { Button } from 'react-native-paper';
-import { useStore } from '~/store/store';
 import ScanResult from '~/components/pages/scan-result';
+import { useRegistrationStore } from '~/store/store';
 
 const borderWidth = Dimensions.get('window').width - 20;
 const borderHeight = borderWidth / 1.6;
 
 function ScanDocument() {
-  const { profile, setProfile, setGrantedPolicies } = useStore();
+  const { scannedDocument, setScannedDocument } = useRegistrationStore();
 
   const cameraRef = useRef<CameraView>(null);
   const [permission, requestPermission] = useCameraPermissions();
 
-  const [result, setResult] = useState<ParseResult | undefined>(undefined);
   function doJob(timer: NodeJS.Timeout) {
     if (cameraRef.current) {
       cameraRef.current
@@ -43,7 +42,10 @@ function ScanDocument() {
                 const res = lines[0] + '\n' + lines[1] + '\n' + lines[2];
                 try {
                   const result = parse(res);
-                  setResult(result);
+
+                  setScannedDocument(
+                    result as ParseResult & { fields: { firstName: string; lastName: string } }
+                  );
                   clearInterval(timer);
                 } catch (error) {
                   console.log(error);
@@ -76,8 +78,8 @@ function ScanDocument() {
     );
   }
 
-  if (result) {
-    return <ScanResult parseResult={result} />;
+  if (scannedDocument) {
+    return <ScanResult parseResult={scannedDocument} />;
   }
 
   return (
@@ -104,7 +106,6 @@ function ScanDocument() {
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} />
             <View
-              // onPress={() => doJob()}
               style={{
                 width: borderWidth,
                 height: borderHeight,
@@ -119,7 +120,6 @@ function ScanDocument() {
                 Kimliğinizi bu alana yerleştirin
               </Text>
             </View>
-            {/* <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} /> */}
           </View>
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} />
         </View>
@@ -128,9 +128,3 @@ function ScanDocument() {
   );
 }
 export default ScanDocument;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-  },
-});

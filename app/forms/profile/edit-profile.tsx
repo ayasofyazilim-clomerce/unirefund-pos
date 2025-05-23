@@ -1,6 +1,7 @@
 import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
+import { getLocales } from 'expo-localization';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -9,20 +10,35 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { ICountry, isValidPhoneNumber } from 'react-native-international-phone-number';
+import {
+  getCountryByCca2,
+  ICountry,
+  isValidPhoneNumber,
+  PhoneInputProps,
+} from 'react-native-international-phone-number';
 import { HelperText, TextInput } from 'react-native-paper';
 import { getUserData } from '~/actions/auth/actions';
 import { editProfile } from '~/actions/auth/register';
 import SubmitButton from '~/components/ui/Button.Submit';
 import Input, { InputPhone } from '~/components/ui/Input';
-import { useStore } from '~/store/store';
+import { useRegistrationStore, useStore } from '~/store/store';
 
 export default function EditProfileForm() {
+  const locales = getLocales();
   const { profile, setProfile, setGrantedPolicies } = useStore();
-  const [nameInput, setNameInput] = useState(profile?.name || '');
-  const [surnameInput, setSurnameInput] = useState(profile?.surname || '');
+  const { scannedDocument } = useRegistrationStore();
+  const [nameInput, setNameInput] = useState(
+    profile?.name || scannedDocument?.fields?.firstName || ''
+  );
+  const [surnameInput, setSurnameInput] = useState(
+    profile?.surname || scannedDocument?.fields?.lastName || ''
+  );
   const [phoneInput, setPhoneInput] = useState('');
-  const [selectedPhoneCountry, setSelectedPhoneCountry] = useState<ICountry | null>(null);
+  const defaultCountryCode = locales?.[0].regionCode || 'TR';
+
+  const [selectedPhoneCountry, setSelectedPhoneCountry] = useState<ICountry | null>(
+    getCountryByCca2(defaultCountryCode) || null
+  );
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -34,9 +50,6 @@ export default function EditProfileForm() {
     setPhoneInput(phoneNumber);
   }
 
-  useEffect(() => {
-    setPhoneInput(profile?.phoneNumber || '');
-  }, []);
   function handlePhoneInputCountryChange(country: ICountry | null) {
     setSelectedPhoneCountry(country);
   }
@@ -58,8 +71,9 @@ export default function EditProfileForm() {
       ...profile,
       name: nameInput,
       surname: surnameInput,
-      phoneNumber: phoneInput,
+      phoneNumber: selectedPhoneCountry.callingCode + phoneInput.replaceAll(' ', ''),
     };
+    console.log(updatedProfile);
 
     const response = await editProfile(
       profile!,
@@ -87,8 +101,8 @@ export default function EditProfileForm() {
             <Input
               mode="outlined"
               label="Adınız"
-              value={surnameInput}
-              onChangeText={(text) => setSurnameInput(text)}
+              value={nameInput}
+              onChangeText={(text) => setNameInput(text)}
               onChange={onInputChange}
               left={<TextInput.Icon icon="account-outline" />}
             />
@@ -97,8 +111,8 @@ export default function EditProfileForm() {
             <Input
               mode="outlined"
               label="Soyadınız"
-              value={nameInput}
-              onChangeText={(text) => setNameInput(text)}
+              value={surnameInput}
+              onChangeText={(text) => setSurnameInput(text)}
               onChange={onInputChange}
               left={<TextInput.Icon icon="email-outline" />}
             />
@@ -107,7 +121,12 @@ export default function EditProfileForm() {
           <View className="mt-3 flex flex-row">
             <InputPhone
               label="Telefon"
+              defaultValue={profile?.phoneNumber || undefined}
               value={phoneInput}
+              popularCountries={['GB', 'PT', 'TR']}
+              defaultCountry={
+                (defaultCountryCode as PhoneInputProps['defaultCountry']) || undefined
+              }
               onChangePhoneNumber={handlePhoneInputchange}
               selectedCountry={selectedPhoneCountry}
               onChangeSelectedCountry={handlePhoneInputCountryChange}

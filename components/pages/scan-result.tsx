@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { ParseResult } from 'mrz';
 
 import {
@@ -12,7 +13,9 @@ import {
 import SubmitButton from '~/components/ui/Button.Submit';
 
 function ScanResult({ parseResult }: { parseResult: ParseResult }) {
-  async function onSubmit() {}
+  async function onSubmit() {
+    router.back();
+  }
   return (
     <>
       <KeyboardAvoidingView
@@ -34,9 +37,7 @@ function ScanResult({ parseResult }: { parseResult: ParseResult }) {
               mode="contained"
               icon={'arrow-right'}
               contentStyle={{ flexDirection: 'row-reverse' }}
-              onSubmit={onSubmit}
-              // disabled={isSubmitDisabled}
-            >
+              onSubmit={onSubmit}>
               Profili Kaydet
             </SubmitButton>
           </View>

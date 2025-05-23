@@ -1,14 +1,17 @@
 import { router, Stack } from 'expo-router';
+import { useState } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 import { logoutUser } from '~/actions/auth/logoutUser';
 import SubmitButton from '~/components/ui/Button.Submit';
 import Stepper from '~/components/ui/Stepper';
-import { useStore } from '~/store/store';
+import { useRegistrationStore, useStore } from '~/store/store';
 
 function RegistrationFlow() {
-  const { profile, setProfile, setGrantedPolicies } = useStore();
+  const { profile } = useStore();
+  const { scannedDocument } = useRegistrationStore();
   const isProfileCompleted = !!profile?.name && !!profile?.surname && !!profile.phoneNumber;
+  const [isLivenessChecked, setLivenessChecked] = useState(false);
 
   async function redirectToHome() {
     if (router.canDismiss()) {
@@ -23,6 +26,7 @@ function RegistrationFlow() {
     await logoutUser();
     router.replace('/login');
   }
+
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
@@ -41,31 +45,31 @@ function RegistrationFlow() {
         />
         <Stepper
           step={2}
-          title={'Profilini tamamla'}
-          description={'Kisisel bilgilerini girerek profilini tamamla'}
-          completed={isProfileCompleted}
-          disabled={false}
+          title={'Pasaport doğrulaması'}
+          description={'Profil bilgilerini doğrulamak için pasaportunuzu okutun.'}
+          completed={!!scannedDocument}
           onPress={() => {
-            router.push('/(public)/(register)/complete-profile');
+            router.push('/(public)/(register)/scan-document');
           }}
         />
         <Stepper
           step={3}
-          title={'Pasaport doğrulaması'}
-          description={'Profil bilgilerini doğrulamak için pasaportunuzu okutun.'}
-          completed={false}
-          disabled={!isProfileCompleted}
+          title={'Profilini tamamla'}
+          description={'Kisisel bilgilerini girerek profilini tamamla'}
+          completed={isProfileCompleted}
+          disabled={!scannedDocument}
           onPress={() => {
-            router.push('/(public)/(register)/scan-document');
+            router.push('/(public)/(register)/complete-profile');
           }}
         />
         <Stepper
           step={4}
           title={'Yüz doğrulaması'}
           description={'Profil bilgilerini doğrulamak için yüzünüzü tanıtın.'}
-          completed={false}
-          disabled={!isProfileCompleted} //!isProfileCompleted || !!profile.phoneNumberConfirmed}
+          completed={isLivenessChecked}
+          disabled={!isProfileCompleted}
           onPress={() => {
+            setLivenessChecked(true);
             router.push('/(public)/(register)/face-detection');
           }}
         />
