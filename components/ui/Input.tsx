@@ -27,12 +27,18 @@ export function InputPhone(args: PhoneInputProps & { label: string }) {
         {...args}
         language="tr"
         phoneInputStyles={{
+          container: {
+            backgroundColor: '#fff',
+            borderRadius: 8,
+            borderWidth: 2,
+            height: 56,
+            borderColor: '#ddd',
+          },
           flagContainer: {
             backgroundColor: 'white',
             borderRightWidth: 1,
             borderColor: '#ddd',
           },
-
           caret: { display: 'none' },
           divider: { display: 'none' },
         }}
