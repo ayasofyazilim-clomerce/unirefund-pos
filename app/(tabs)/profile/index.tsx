@@ -1,8 +1,10 @@
 import { router, Stack } from 'expo-router';
 
-import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useCallback, useRef, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Avatar, Text } from 'react-native-paper';
+import QRCodeStyled from 'react-native-qrcode-styled';
 import { logoutUser } from '~/actions/auth/logoutUser';
 import { ListItem, ListView } from '~/components/ui/ListView';
 import { useStore } from '~/store/store';
@@ -12,6 +14,20 @@ export default function Profile() {
   const { profile } = useStore();
   const [modalVisible, setModalVisible] = useState(false);
   const { initials, fullName } = avatarPlaceholder();
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
+  const handleSheetChanges = useCallback((index: number) => {
+    if (index === -1) {
+      bottomSheetModalRef.current?.close();
+    }
+    console.log('handleSheetChanges', index);
+  }, []);
+
   async function logoutAndRedirect() {
     await logoutUser();
     if (router.canDismiss()) {
@@ -50,10 +66,18 @@ export default function Profile() {
         }}
       />
       <View style={styles.container}>
-        <View className="mb-6 flex-col items-center justify-between gap-3">
+        <View className="relative mb-6 flex-col items-center justify-between gap-3">
           <Avatar.Text size={128} label={initials} />
           <Text className="text-lg font-bold">{fullName}</Text>
+          <Pressable className="absolute right-0 top-0" onPress={() => setModalVisible(true)}>
+            <QRCodeStyled
+              data={'Simple QR Code'}
+              style={{ backgroundColor: 'white' }}
+              pieceSize={2}
+            />
+          </Pressable>
         </View>
+
         <ListView title="Hesap ayarları">
           <ListItem
             title="Hesap bilgileri"
@@ -72,12 +96,17 @@ export default function Profile() {
           <ListItem title="Çıkış Yap" icon="exit-to-app" onPress={logoutAndRedirect} />
         </ListView>
       </View>
-      <QRModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+
+      {modalVisible && <QRModal setModalVisible={setModalVisible} />}
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     padding: 24,

@@ -1,28 +1,64 @@
-import { Modal, Pressable, Text, View } from 'react-native';
+import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
+import { useCallback, useEffect, useRef } from 'react';
+import { StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import QRCodeStyled from 'react-native-qrcode-styled';
 
 export default function QRModal({
-  modalVisible,
   setModalVisible,
 }: {
-  modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
 }) {
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    if (index === -1) {
+      bottomSheetModalRef.current?.close();
+      setModalVisible(false);
+    }
+  }, []);
+  useEffect(() => {
+    handlePresentModalPress();
+  }, []);
   return (
-    <Modal
-      animationType="slide"
-      backdropColor={'#ffffffaa'}
-      visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(!modalVisible);
-      }}>
-      <View className="flex-1 items-center justify-center">
-        <Text className="font-bold">QR Kod!</Text>
-        <Pressable
-          className="mt-4 rounded-lg border border-gray-700 px-3 py-2"
-          onPress={() => setModalVisible(!modalVisible)}>
-          <Text className="text-center text-gray-700">Kapat</Text>
-        </Pressable>
-      </View>
-    </Modal>
+    <GestureHandlerRootView style={styles.sheetContainer}>
+      <BottomSheetModalProvider>
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          onChange={handleSheetChanges}
+          onDismiss={() => setModalVisible(false)}
+          snapPoints={[262]}>
+          <BottomSheetView style={styles.contentContainer}>
+            <QRCodeStyled
+              data={'https://unirefund.com'}
+              style={{ backgroundColor: 'white' }}
+              pieceSize={6}
+            />
+          </BottomSheetView>
+        </BottomSheetModal>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 }
+const styles = StyleSheet.create({
+  sheetContainer: {
+    flex: 1,
+    padding: 24,
+    justifyContent: 'center',
+    backgroundColor: '#00000050',
+    zIndex: 99,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 112,
+  },
+});

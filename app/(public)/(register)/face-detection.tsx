@@ -30,7 +30,16 @@ function FaceDetection() {
   const { detectFaces } = useFaceDetector(faceDetectionOptions);
 
   const handleDetectedFaces = Worklets.createRunOnJS((faces: Face[]) => {
-    if (faces.length === 0) return;
+    if (faces.length === 0) {
+      setLivenessTest({
+        smile: false,
+        turnLeft: false,
+        turnRight: false,
+        leftEyeBlink: false,
+        rightEyeBlink: false,
+      });
+      return;
+    }
 
     if (!livenessTest.smile) {
       if (faces[0].smilingProbability > 0.9) {

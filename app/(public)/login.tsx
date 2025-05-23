@@ -72,23 +72,25 @@ export default function Login() {
 
   return (
     <SafeAreaView className="flex-1" edges={['bottom']}>
-      <View className="px-6 pt-8">
-        <SegmentedButtons
-          value={env}
-          onValueChange={setEnv}
-          theme={{ colors: { secondaryContainer: '#de1919', onSecondaryContainer: '#fff' } }}
-          buttons={[
-            {
-              value: 'dev',
-              label: 'Dev',
-            },
-            {
-              value: 'live',
-              label: 'Live',
-            },
-          ]}
-        />
-      </View>
+      {__DEV__ && (
+        <View className="px-6 pt-8">
+          <SegmentedButtons
+            value={env}
+            onValueChange={setEnv}
+            theme={{ colors: { secondaryContainer: '#de1919', onSecondaryContainer: '#fff' } }}
+            buttons={[
+              {
+                value: 'dev',
+                label: 'Dev',
+              },
+              {
+                value: 'live',
+                label: 'Live',
+              },
+            ]}
+          />
+        </View>
+      )}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
