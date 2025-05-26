@@ -111,7 +111,7 @@ function FaceDetection() {
       if (router.canGoBack()) {
         router.back();
       }
-    }, 1000);
+    }, 3000);
     return 'Tebrikler';
   };
   if (!device) return null;
