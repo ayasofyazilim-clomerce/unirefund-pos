@@ -8,7 +8,7 @@ import QRCodeStyled from 'react-native-qrcode-styled';
 import { logoutUser } from '~/actions/auth/logoutUser';
 import { ListItem, ListView } from '~/components/ui/ListView';
 import { useStore } from '~/store/store';
-import QRModal from './qr-modal';
+import QRModal from '~/components/modals/profile/qr-modal';
 
 export default function Profile() {
   const { profile } = useStore();
