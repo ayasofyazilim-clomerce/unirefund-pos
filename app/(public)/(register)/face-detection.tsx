@@ -10,39 +10,39 @@ import {
 import { Worklets } from 'react-native-worklets-core';
 import { CircularProgress } from '~/components/ui/CircularProgress';
 
+const defaultLivenessTestValues = {
+  smile: false,
+  turnLeft: false,
+  turnRight: false,
+  leftEyeBlink: false,
+  rightEyeBlink: false,
+};
+
 function FaceDetection() {
-  const [livenessTest, setLivenessTest] = useState({
-    smile: false,
-    turnLeft: false,
-    turnRight: false,
-    leftEyeBlink: false,
-    rightEyeBlink: false,
-  });
-
-  const progress =
-    Object.values(livenessTest).filter((value) => value).length / Object.keys(livenessTest).length;
-
   const device = useCameraDevice('front');
   const faceDetectionOptions = useRef<FaceDetectionOptions>({
     classificationMode: 'all',
     landmarkMode: 'all',
   }).current;
   const { detectFaces } = useFaceDetector(faceDetectionOptions);
+  const livenessTestRef = useRef({ ...defaultLivenessTestValues });
+  const [livenessTest, setLivenessTest] = useState({ ...defaultLivenessTestValues });
+
+  const progress =
+    Object.values(livenessTest).filter((value) => value).length / Object.keys(livenessTest).length;
 
   const handleDetectedFaces = Worklets.createRunOnJS((faces: Face[]) => {
     if (faces.length === 0) {
-      setLivenessTest({
-        smile: false,
-        turnLeft: false,
-        turnRight: false,
-        leftEyeBlink: false,
-        rightEyeBlink: false,
-      });
+      livenessTestRef.current = { ...defaultLivenessTestValues };
+      setLivenessTest({ ...defaultLivenessTestValues });
       return;
     }
-
+    if (JSON.stringify(livenessTestRef.current) !== JSON.stringify(livenessTest)) {
+      return;
+    }
     if (!livenessTest.smile) {
       if (faces[0].smilingProbability > 0.9) {
+        livenessTestRef.current = { ...livenessTestRef.current, smile: true };
         setTimeout(() => {
           setLivenessTest({ ...livenessTest, smile: true });
         }, 500);
@@ -52,6 +52,7 @@ function FaceDetection() {
 
     if (!livenessTest.turnLeft) {
       if (faces[0].yawAngle > 20) {
+        livenessTestRef.current = { ...livenessTestRef.current, turnLeft: true };
         setTimeout(() => {
           setLivenessTest({ ...livenessTest, turnLeft: true });
         }, 500);
@@ -60,6 +61,7 @@ function FaceDetection() {
     }
     if (!livenessTest.turnRight) {
       if (faces[0].yawAngle < -20) {
+        livenessTestRef.current = { ...livenessTestRef.current, turnRight: true };
         setTimeout(() => {
           setLivenessTest({ ...livenessTest, turnRight: true });
         }, 500);
@@ -69,6 +71,7 @@ function FaceDetection() {
 
     if (!livenessTest.leftEyeBlink) {
       if (faces[0].rightEyeOpenProbability < 0.1) {
+        livenessTestRef.current = { ...livenessTestRef.current, leftEyeBlink: true };
         setTimeout(() => {
           setLivenessTest({ ...livenessTest, leftEyeBlink: true });
         }, 500);
@@ -77,6 +80,7 @@ function FaceDetection() {
     }
     if (!livenessTest.rightEyeBlink) {
       if (faces[0].leftEyeOpenProbability < 0.1) {
+        livenessTestRef.current = { ...livenessTestRef.current, rightEyeBlink: true };
         setTimeout(() => {
           setLivenessTest({ ...livenessTest, rightEyeBlink: true });
         }, 500);
@@ -93,6 +97,7 @@ function FaceDetection() {
     },
     [handleDetectedFaces]
   );
+
   const getLivenessInstruction = () => {
     if (!livenessTest.smile) return 'Gülümseyin';
     if (!livenessTest.turnLeft) return 'Kafanızı sola doğru çevirin';
@@ -101,6 +106,8 @@ function FaceDetection() {
     if (!livenessTest.rightEyeBlink) return 'Sağ gözünüzü kapatın';
 
     setTimeout(() => {
+      if (!livenessTestRef.current.rightEyeBlink) return;
+
       if (router.canGoBack()) {
         router.back();
       }
