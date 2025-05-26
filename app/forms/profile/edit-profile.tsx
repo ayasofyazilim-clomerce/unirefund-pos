@@ -73,7 +73,6 @@ export default function EditProfileForm() {
       surname: surnameInput,
       phoneNumber: selectedPhoneCountry.callingCode + phoneInput.replaceAll(' ', ''),
     };
-    console.log(updatedProfile);
 
     const response = await editProfile(
       profile!,

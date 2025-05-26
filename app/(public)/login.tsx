@@ -35,7 +35,7 @@ export default function Login() {
 
   useEffect(() => {
     if (logoClickCount > 5) {
-      setUsernameInput('admin');
+      setUsernameInput('mobil_test6');
       setPasswordInput('1q2w3E*');
     }
   }, [logoClickCount]);
@@ -122,6 +122,9 @@ export default function Login() {
                 mode="outlined"
                 label="Email"
                 value={usernameInput}
+                autoComplete="email"
+                inputMode="email"
+                keyboardType="email-address"
                 left={<TextInput.Icon icon="email-outline" />}
                 onChangeText={(text) => setUsernameInput(text)}
                 onChange={onInputChange}

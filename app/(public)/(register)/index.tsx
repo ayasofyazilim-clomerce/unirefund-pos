@@ -93,6 +93,9 @@ export default function Register() {
                 mode="outlined"
                 label="Email"
                 value={emailInput}
+                autoComplete="email"
+                inputMode="email"
+                keyboardType="email-address"
                 onChangeText={(text) => setEmailInput(text)}
                 onChange={onInputChange}
                 left={<TextInput.Icon icon="email-outline" />}

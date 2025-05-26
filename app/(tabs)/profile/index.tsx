@@ -25,7 +25,6 @@ export default function Profile() {
     if (index === -1) {
       bottomSheetModalRef.current?.close();
     }
-    console.log('handleSheetChanges', index);
   }, []);
 
   async function logoutAndRedirect() {
