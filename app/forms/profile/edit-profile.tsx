@@ -28,10 +28,10 @@ export default function EditProfileForm() {
   const { profile, setProfile, setGrantedPolicies } = useStore();
   const { scannedDocument } = useRegistrationStore();
   const [nameInput, setNameInput] = useState(
-    profile?.name || scannedDocument?.fields?.firstName || ''
+    scannedDocument?.fields?.firstName || profile?.name || ''
   );
   const [surnameInput, setSurnameInput] = useState(
-    profile?.surname || scannedDocument?.fields?.lastName || ''
+    scannedDocument?.fields?.lastName || profile?.surname || ''
   );
   const [phoneInput, setPhoneInput] = useState('');
   const defaultCountryCode = locales?.[0].regionCode || 'TR';
