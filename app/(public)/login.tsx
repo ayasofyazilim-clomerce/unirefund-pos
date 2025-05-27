@@ -1,4 +1,5 @@
-import { Link, router, Stack } from 'expo-router';
+import { Link, router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -10,15 +11,14 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { isClip } from 'react-native-app-clip';
 import { Button, Chip, HelperText, Icon, SegmentedButtons, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
+import { isProfileCompleted } from '~/actions/lib';
 import SubmitButton from '~/components/ui/Button.Submit';
 import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';
-import * as SecureStore from 'expo-secure-store';
-import { isProfileCompleted } from '~/actions/lib';
-
 export default function Login() {
   const { tenant, setTenant, setProfile, setGrantedPolicies, setEnv, env } = useStore();
 
@@ -116,6 +116,11 @@ export default function Login() {
                 style={{ borderWidth: 1, borderColor: '#ddd' }}>
                 {tenant.name} tenant'ına giriş yapmaktasınız.
               </Chip>
+            )}
+            {isClip() && (
+              <View className="mb-4 items-center">
+                <Button mode="outlined">App Clip ile Giriş Yap</Button>
+              </View>
             )}
             <View className="flex flex-row">
               <Input
