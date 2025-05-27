@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import WebView from '~/components/WebView';
+import WebView from '~/components/ui/WebView';
 
 function ChangePassword() {
   return (

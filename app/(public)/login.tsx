@@ -10,33 +10,37 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Button, Chip, HelperText, Icon, SegmentedButtons } from 'react-native-paper';
+import { Button, Chip, HelperText, Icon, SegmentedButtons, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
-import SubmitButton from '~/components/Button.Submit';
-import Input from '~/components/Input';
+import SubmitButton from '~/components/ui/Button.Submit';
+import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';
 import * as SecureStore from 'expo-secure-store';
+import { isProfileCompleted } from '~/actions/lib';
 
 export default function Login() {
   const { tenant, setTenant, setProfile, setGrantedPolicies, setEnv, env } = useStore();
 
+  const [showPassword, setShowPassword] = useState(false);
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
   const [logoClickCount, setLogoClickCount] = useState(0);
 
-  const [loginError, setLoginError] = useState<string | null>(null);
-  const [loginDisabled, setLoginDisabled] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+
+  const isSubmitDisabled = !usernameInput || !passwordInput || submitDisabled;
 
   useEffect(() => {
     if (logoClickCount > 5) {
-      setUsernameInput('admin');
+      setUsernameInput('mobil_test6');
       setPasswordInput('1q2w3E*');
     }
   }, [logoClickCount]);
   async function loginFunction() {
-    setLoginDisabled(true);
+    setSubmitDisabled(true);
     try {
       await SecureStore.setItemAsync('env', env);
       const loginStatus = await loginWithCredentials(
@@ -45,46 +49,48 @@ export default function Login() {
         tenant?.tenantId || ''
       );
       if (loginStatus !== true) {
-        setLoginError(loginStatus);
+        setSubmitError(loginStatus);
       }
-      if (loginStatus === true && (await getUserData(setProfile, setGrantedPolicies))) {
-        router.replace('/(tabs)');
+      const userData = await getUserData(setProfile, setGrantedPolicies);
+      if (loginStatus === true && userData) {
+        if (isProfileCompleted(userData)) {
+          router.replace('/(tabs)');
+          return;
+        }
+        router.replace('/(public)/(register)/registration-flow');
         return;
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.log('Login error:', error);
     }
   }
 
   function onInputChange() {
-    setLoginDisabled(false);
-    setLoginError(null);
+    setSubmitDisabled(false);
+    setSubmitError(null);
   }
 
   return (
     <SafeAreaView className="flex-1" edges={['bottom']}>
-      <Stack.Screen
-        options={{
-          title: 'Giriş Yap',
-        }}
-      />
-      <View className="px-6 pt-8">
-        <SegmentedButtons
-          value={env}
-          onValueChange={setEnv}
-          theme={{ colors: { secondaryContainer: '#de1919', onSecondaryContainer: '#fff' } }}
-          buttons={[
-            {
-              value: 'dev',
-              label: 'Dev',
-            },
-            {
-              value: 'live',
-              label: 'Live',
-            },
-          ]}
-        />
-      </View>
+      {__DEV__ && (
+        <View className="px-6 pt-8">
+          <SegmentedButtons
+            value={env}
+            onValueChange={setEnv}
+            theme={{ colors: { secondaryContainer: '#de1919', onSecondaryContainer: '#fff' } }}
+            buttons={[
+              {
+                value: 'dev',
+                label: 'Dev',
+              },
+              {
+                value: 'live',
+                label: 'Live',
+              },
+            ]}
+          />
+        </View>
+      )}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
@@ -116,29 +122,40 @@ export default function Login() {
                 mode="outlined"
                 label="Email"
                 value={usernameInput}
+                autoComplete="email"
+                inputMode="email"
+                keyboardType="email-address"
+                left={<TextInput.Icon icon="email-outline" />}
                 onChangeText={(text) => setUsernameInput(text)}
                 onChange={onInputChange}
               />
             </View>
-            <View className="flex flex-row">
+            <View className="mt-3 flex flex-row">
               <Input
                 mode="outlined"
                 label="Şifre"
                 value={passwordInput}
                 onChangeText={(text) => setPasswordInput(text)}
                 onChange={onInputChange}
-                secureTextEntry={true}
+                secureTextEntry={!showPassword}
+                left={<TextInput.Icon icon="lock-outline" />}
+                right={
+                  <TextInput.Icon
+                    icon={showPassword ? 'eye-off' : 'eye'}
+                    onPress={() => setShowPassword(!showPassword)}
+                  />
+                }
               />
             </View>
 
-            <HelperText type="error" visible={loginDisabled} className={'-mx-2 p-0'}>
-              {loginError}
+            <HelperText type="error" visible={submitDisabled} className={'-mx-2 p-0'}>
+              {submitError}
             </HelperText>
             <SubmitButton
               mode="contained"
               onSubmit={loginFunction}
               icon={'login'}
-              disabled={loginDisabled}>
+              disabled={isSubmitDisabled}>
               Giriş Yap
             </SubmitButton>
             <SubmitButton
@@ -146,8 +163,8 @@ export default function Login() {
               labelStyle={{ color: '#71717a' }}
               mode="outlined"
               icon={'account-plus'}
-              onSubmit={loginFunction}
-              disabled={loginDisabled}>
+              onSubmit={async () => router.replace('/(public)/(register)')}
+              disabled={submitDisabled}>
               Kayıt Ol
             </SubmitButton>
           </View>

@@ -1,6 +1,6 @@
 import { ApiError } from '@ayasofyazilim/core-saas/AccountService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchNewAccessTokenByRefreshToken } from '~/actions/auth/actions';
+import { fetchNewAccessTokenByRefreshToken } from '~/actions/auth/fetchNewAccessToken';
 
 export async function fetchRequest<T>(request: () => Promise<T>) {
   try {
@@ -14,7 +14,7 @@ export async function fetchRequest<T>(request: () => Promise<T>) {
         if (await fetchNewAccessTokenByRefreshToken()) {
           return await fetchRequest(request);
         } else {
-          console.error('Failed to refresh token');
+          console.log('Failed to refresh token');
           await AsyncStorage.removeItem('refreshToken');
           await AsyncStorage.removeItem('accessToken');
           return new Error('Failed to refresh token');

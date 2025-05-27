@@ -6,7 +6,10 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["*"]
+      "~/*": ["*"],
+      "react-native-qrcode-styled": [
+        "node_modules/react-native-qrcode-styled/lib/typescript/module/src/index.d.ts"
+      ]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts"]

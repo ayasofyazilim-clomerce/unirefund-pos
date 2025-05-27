@@ -3,7 +3,7 @@ import { NovuProvider } from '@novu/react-native';
 import { Tabs, useRouter } from 'expo-router';
 import { Pressable } from 'react-native';
 import { Icon } from 'react-native-paper';
-import { Header } from '~/components/Header';
+import { Header } from '~/components/sections/Header';
 
 export default function TabLayout() {
   const router = useRouter();
