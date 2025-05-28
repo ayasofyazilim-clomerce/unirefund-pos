@@ -4,52 +4,7 @@
     "slug": "unirefund-mobile",
     "version": "1.0.0",
     "scheme": "unirefund-mobile",
-    "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "minSdkVersion": 26
-          }
-        }
-      ],
-      "expo-localization",
-      "expo-router",
-      [
-        "expo-dev-launcher",
-        {
-          "launchMode": "most-recent"
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
-          "recordAudioAndroid": true
-        }
-      ],
-      [
-        "react-native-vision-camera",
-        {
-          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
-          "enableMicrophonePermission": true,
-          "microphonePermissionText": "$(PRODUCT_NAME) needs access to your Microphone."
-        }
-      ],
-      [
-        "expo-splash-screen",
-        {
-          "backgroundColor": "#232323",
-          "image": "./assets/unirefund.png",
-          "imageWidth": 200
-        }
-      ],
-      "expo-secure-store",
-      "react-native-vision-camera",
-      "expo-localization",
-      "react-native-app-clip"
-    ],
+    "plugins": [],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
