@@ -48,7 +48,6 @@ function RegistrationFlow() {
           title={'Profilini tamamla'}
           description={'Kisisel bilgilerini girerek profilini tamamla'}
           completed={isProfileCompleted}
-          disabled={!scannedDocument}
           onPress={() => {
             router.push('/(public)/(register)/complete-profile');
           }}
@@ -58,7 +57,6 @@ function RegistrationFlow() {
           title={'Yüz doğrulaması'}
           description={'Profil bilgilerini doğrulamak için yüzünüzü tanıtın.'}
           completed={isLivenessChecked}
-          disabled={!isProfileCompleted}
           onPress={() => {
             setLivenessChecked(true);
             router.push('/(public)/(register)/face-detection');
