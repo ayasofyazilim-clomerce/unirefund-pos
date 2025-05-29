@@ -5,16 +5,8 @@
     "version": "1.0.0",
     "scheme": "unirefund-mobile",
     "plugins": [
-      "react-native-app-clip",
-      [
-        "react-native-nfc-manager",
-        {
-          "nfcPermission": "Custom permission message",
-          "selectIdentifiers": ["A0000002471001"],
-          "systemCodes": ["8008"],
-          "includeNdefEntitlement": false
-        }
-      ]
+      "react-native-app-clip"
+      
     ],
     "experiments": {
       "typedRoutes": true,
@@ -28,9 +20,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.unirefund.mobile",
