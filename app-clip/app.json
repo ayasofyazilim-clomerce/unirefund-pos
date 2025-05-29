@@ -10,10 +10,10 @@
       "tsconfigPaths": true
     },
     "orientation": "portrait",
-    "icon": "./assets/unirefund.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/unirefund.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -31,7 +31,7 @@
     "android": {
       "package": "com.unirefund.mobile",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/unirefund.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       }
     },
