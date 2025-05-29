@@ -6,17 +6,17 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-ml-kit/text-recognition": "^1.5.2",
     "expo": "~53.0.9",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
     "react-native": "0.79.2",
-    "react-native-app-clip": "^0.6.1"
+    "react-native-app-clip": "^0.6.1",
+    "react-native-nfc-manager": "^3.16.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
