@@ -15,7 +15,6 @@ import { isClip } from 'react-native-app-clip';
 import { Button, Chip, HelperText, Icon, SegmentedButtons, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
-import { isProfileCompleted } from '~/actions/lib';
 import SubmitButton from '~/components/ui/Button.Submit';
 import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';
@@ -53,11 +52,7 @@ export default function Login() {
       }
       const userData = await getUserData(setProfile, setGrantedPolicies);
       if (loginStatus === true && userData) {
-        if (isProfileCompleted(userData)) {
-          router.replace('/(tabs)');
-          return;
-        }
-        router.replace('/(public)/(register)/registration-flow');
+        router.replace('/(tabs)');
         return;
       }
     } catch (error) {
