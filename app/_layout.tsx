@@ -7,6 +7,9 @@ import * as React from 'react';
 import { Platform } from 'react-native';
 import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
+import { PortalHost } from '@rn-primitives/portal';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
   colors: NAV_THEME.light,
@@ -43,21 +46,24 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView className="flex-1" edges={['top']}>
-      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <StatusBar style="dark" />
-        <Stack
-          screenOptions={{
-            header: undefined,
-            headerShown: false,
-            contentStyle: { backgroundColor: '#fff' },
-          }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="(public)" />
-          <Stack.Screen name="(tabs)" />
-        </Stack>
-      </ThemeProvider>
-    </SafeAreaView>
+    <GestureHandlerRootView>
+      <SafeAreaView className="flex-1" edges={['top']}>
+        <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+          <StatusBar style="dark" />
+          <Stack
+            screenOptions={{
+              header: undefined,
+              headerShown: false,
+              contentStyle: { backgroundColor: '#fff' },
+            }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(public)" />
+            <Stack.Screen name="(tabs)" />
+          </Stack>
+          <PortalHost />
+        </ThemeProvider>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 const useIsomorphicLayoutEffect =
