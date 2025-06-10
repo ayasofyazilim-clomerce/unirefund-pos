@@ -1,7 +1,5 @@
 import { Stack } from 'expo-router';
-import { useEffect, useRef } from 'react';
 
-import { WebView } from 'react-native-webview';
 import { StyleSheet, Text, View } from 'react-native';
 import { useStore } from '~/store/store';
 function Home() {

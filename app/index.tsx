@@ -5,7 +5,7 @@ import { checkIsLoggedIn } from '~/actions/auth/actions';
 import { useStore } from '~/store/store';
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ENVIRONMENT, isProfileCompleted } from '~/actions/lib';
+import { ENVIRONMENT } from '~/actions/lib';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -18,12 +18,7 @@ export default function App() {
       await SplashScreen.hideAsync();
     }, 2000);
   }
-  function redirectToRegistrationFlow() {
-    router.replace('/(public)/(register)/registration-flow');
-    setTimeout(async () => {
-      await SplashScreen.hideAsync();
-    }, 2000);
-  }
+
   function redirectToHome() {
     router.replace('/(tabs)');
     setTimeout(async () => {
@@ -52,10 +47,6 @@ export default function App() {
       const grantedPolicies = await getGrantedPoliciesApi();
       setGrantedPolicies(grantedPolicies);
 
-      if (!isProfileCompleted(userProfile)) {
-        redirectToRegistrationFlow();
-        return;
-      }
       redirectToHome();
     } else {
       // Navigate to the login screen
