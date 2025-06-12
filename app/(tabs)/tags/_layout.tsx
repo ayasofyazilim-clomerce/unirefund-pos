@@ -8,7 +8,13 @@ export default function Layout() {
         header: Header,
         contentStyle: { backgroundColor: '#fff' },
       }}>
-      <Stack.Screen name="index" />
+      <Stack.Screen
+        name="index"
+        options={{
+          title: 'Tags',
+        }}
+      />
+      <Stack.Screen name="details/[id]" />
     </Stack>
   );
 }

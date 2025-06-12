@@ -10,3 +10,12 @@ export async function getTags(data?: GetApiTagServiceTagData) {
   const response = await fetchRequest(getData, 'getTags');
   return response;
 }
+
+export async function getTagDetailsById(id: string) {
+  async function getData() {
+    const client = await getTagServiceClient();
+    return await client.tag.getApiTagServiceTagByIdDetail({ id });
+  }
+  const response = await fetchRequest(getData, 'getTagDetailsById ');
+  return response;
+}
