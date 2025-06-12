@@ -40,9 +40,6 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
-      borderWidth: {
-        hairline: hairlineWidth(),
-      },
     },
   },
   plugins: [],

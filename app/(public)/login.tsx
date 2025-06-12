@@ -1,5 +1,7 @@
+import Icon from '@expo/vector-icons/Ionicons';
 import { Link, router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
+import { Globe } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -11,14 +13,16 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { isClip } from 'react-native-app-clip';
-import { Button, Chip, HelperText, Icon, SegmentedButtons, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/core/auth/actions';
 import { isProfileCompleted } from '~/actions/lib';
-import SubmitButton from '~/components/ui/Button.Submit';
-import Input from '~/components/ui/Input';
+import SubmitButton from '~/components/custom/Button.Submit';
+import Input from '~/components/custom/Input';
+import { Alert, AlertTitle } from '~/components/ui/alert';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
 import { useStore } from '~/store/store';
+
 export default function Login() {
   const { tenant, setTenant, setProfile, setGrantedPolicies, setEnv, env } = useStore();
 
@@ -35,7 +39,7 @@ export default function Login() {
 
   useEffect(() => {
     if (logoClickCount > 5) {
-      setUsernameInput('mobil_test6');
+      setUsernameInput('admin');
       setPasswordInput('1q2w3E*');
     }
   }, [logoClickCount]);
@@ -72,7 +76,7 @@ export default function Login() {
 
   return (
     <SafeAreaView className="flex-1" edges={['bottom']}>
-      {__DEV__ && (
+      {/* {__DEV__ && (
         <View className="px-6 pt-8">
           <SegmentedButtons
             value={env}
@@ -90,7 +94,7 @@ export default function Login() {
             ]}
           />
         </View>
-      )}
+      )} */}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
@@ -109,65 +113,62 @@ export default function Login() {
               />
             </Pressable>
             {!!tenant?.name && (
-              <Chip
-                icon={() => <Icon source="earth" size={16} />}
-                onClose={() => setTenant(null)}
-                className="mb-2"
-                style={{ borderWidth: 1, borderColor: '#ddd' }}>
-                {tenant.name} tenant'ına giriş yapmaktasınız.
-              </Chip>
+              <Alert icon={Globe} className="mb-4 flex flex-row items-center justify-between">
+                <AlertTitle>{tenant.name} tenant'ına giriş yapmaktasınız.</AlertTitle>
+                <Pressable
+                  className="flex flex-row items-center self-center"
+                  onPress={() => setTenant(null)}>
+                  <Icon name="close" size={16} color="#000" />
+                </Pressable>
+              </Alert>
             )}
-            {isClip() && (
-              <View className="mb-4 items-center">
-                <Button mode="outlined">App Clip ile Giriş Yap</Button>
-              </View>
-            )}
+
             <View className="flex flex-row">
               <Input
-                mode="outlined"
                 label="Email"
                 value={usernameInput}
                 autoComplete="email"
                 inputMode="email"
                 keyboardType="email-address"
-                left={<TextInput.Icon icon="email-outline" />}
+                icon="mail-outline"
                 onChangeText={(text) => setUsernameInput(text)}
                 onChange={onInputChange}
               />
             </View>
             <View className="mt-3 flex flex-row">
               <Input
-                mode="outlined"
                 label="Şifre"
                 value={passwordInput}
                 onChangeText={(text) => setPasswordInput(text)}
                 onChange={onInputChange}
                 secureTextEntry={!showPassword}
-                left={<TextInput.Icon icon="lock-outline" />}
+                icon="lock-closed-outline"
                 right={
-                  <TextInput.Icon
-                    icon={showPassword ? 'eye-off' : 'eye'}
+                  <Icon
+                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                     onPress={() => setShowPassword(!showPassword)}
+                    color={'#333'}
+                    size={20}
                   />
                 }
               />
             </View>
 
-            <HelperText type="error" visible={submitDisabled} className={'-mx-2 p-0'}>
-              {submitError}
-            </HelperText>
+            {submitDisabled && <Text className="mt-4 text-red-700">{submitError} </Text>}
+
             <SubmitButton
-              mode="contained"
               onSubmit={loginFunction}
-              icon={'login'}
+              icon={'log-in-outline'}
+              iconColor="#fff"
               disabled={isSubmitDisabled}>
               Giriş Yap
             </SubmitButton>
+
             <SubmitButton
               className="mt-4"
-              labelStyle={{ color: '#71717a' }}
-              mode="outlined"
-              icon={'account-plus'}
+              iconColor="#000"
+              variant={'outline'}
+              icon={'person-add-outline'}
               onSubmit={async () => router.replace('/(public)/(register)')}
               disabled={submitDisabled}>
               Kayıt Ol
@@ -177,12 +178,8 @@ export default function Login() {
       </KeyboardAvoidingView>
       <View className={`${logoClickCount > 5 ? '' : 'invisible'} items-center`}>
         <Link href="/(public)/tenant-modal" asChild>
-          <Button
-            icon="handshake"
-            mode="text"
-            labelStyle={{ color: '#71717a' }}
-            theme={{ colors: { primary: '#71717a' } }}>
-            Kurumsal Giriş
+          <Button variant={'ghost'}>
+            <Text>Kurumsal Giriş</Text>
           </Button>
         </Link>
       </View>

@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 import { logoutUser } from '~/actions/core/auth/logoutUser';
-import SubmitButton from '~/components/ui/Button.Submit';
-import Stepper from '~/components/ui/Stepper';
+import SubmitButton from '~/components/custom/Button.Submit';
+import Stepper from '~/components/custom/Stepper';
 import { useRegistrationStore, useStore } from '~/store/store';
 
 function RegistrationFlow() {
@@ -75,9 +75,8 @@ function RegistrationFlow() {
         />
         <View className="mt-4">
           <SubmitButton
-            mode="contained"
-            icon={'arrow-right'}
-            contentStyle={{ flexDirection: 'row-reverse' }}
+            icon={'chevron-forward'}
+            iconColor="white"
             onSubmit={async () => redirectToHome()}
             disabled={!isProfileCompleted}>
             Uygulamaya devam et
@@ -86,9 +85,8 @@ function RegistrationFlow() {
         {!isProfileCompleted && (
           <View className="mt-4">
             <SubmitButton
-              mode="outlined"
-              textColor="gray"
-              icon={'logout'}
+              iconColor="white"
+              icon={'log-out'}
               onSubmit={async () => redirectToLogin()}>
               Çıkış yap
             </SubmitButton>
