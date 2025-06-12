@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StepButton: View {
     let isSet: Bool
+    let isDisabled: Bool
     let stepNumber: String
     let stepTitle: String
     let onClick: () -> Void
@@ -20,7 +21,7 @@ struct StepButton: View {
             HStack {
                 Image(systemName: isSet ? "checkmark.circle.fill" : "checkmark.circle")
                     .font(.system(size: 44))
-                    .foregroundColor(isSet ? .green : .accentColor)
+                    .foregroundColor(isSet ? .green : isDisabled ? .gray : .accentColor)
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(stepNumber)
@@ -32,6 +33,6 @@ struct StepButton: View {
                         .foregroundColor(.black)
                 }
             }
-        }
+        }.disabled(isSet || isDisabled)
     }
 }
