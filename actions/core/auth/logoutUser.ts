@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ENVIRONMENT, getAccountServiceClient } from '../lib';
+import { ENVIRONMENT, getAccountServiceClient } from '../../lib';
 import * as SecureStore from 'expo-secure-store';
 
 export async function logoutUser() {

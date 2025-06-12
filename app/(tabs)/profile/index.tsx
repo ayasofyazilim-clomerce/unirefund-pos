@@ -5,7 +5,7 @@ import { useCallback, useRef, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Avatar, Text } from 'react-native-paper';
 import QRCodeStyled from 'react-native-qrcode-styled';
-import { logoutUser } from '~/actions/auth/logoutUser';
+import { logoutUser } from '~/actions/core/auth/logoutUser';
 import { ListItem, ListView } from '~/components/ui/ListView';
 import { useStore } from '~/store/store';
 import QRModal from '~/components/modals/profile/qr-modal';

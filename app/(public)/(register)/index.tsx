@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
-import { signUp } from '~/actions/auth/register';
+import { getUserData, loginWithCredentials } from '~/actions/core/auth/actions';
+import { signUp } from '~/actions/core/auth/register';
 import SubmitButton from '~/components/ui/Button.Submit';
 import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';

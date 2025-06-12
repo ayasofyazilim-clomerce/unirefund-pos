@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { HelperText, IconButton } from 'react-native-paper';
-import { getTenantByNameApi } from '~/actions/AccountService/actions';
+import { getTenantByNameApi } from '~/actions/core/AccountService/actions';
 import SubmitButton from '~/components/ui/Button.Submit';
 import Input from '~/components/ui/Input';
 import { useDebounce } from '~/hooks/useDebounce';

@@ -1,5 +1,5 @@
 import type { Volo_Abp_Account_ProfileDto } from '@ayasofyazilim/core-saas/AccountService';
-import type { GrantedPolicies } from '~/actions/AccountService/types';
+import type { GrantedPolicies } from '~/actions/core/AccountService/types';
 import type { Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto } from '@ayasofyazilim/core-saas/AccountService';
 import { ParseResult } from 'mrz';
 
