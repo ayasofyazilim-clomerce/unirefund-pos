@@ -21,7 +21,7 @@ export function Header(props: BottomTabHeaderProps | NativeStackHeaderProps) {
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {'headerBackVisible' in props.options && (
           <Icon
-            icon="arrow-back"
+            name="arrow-back"
             contentStyle={{ alignItems: 'flex-start' }}
             size={24}
             onPress={() => {
