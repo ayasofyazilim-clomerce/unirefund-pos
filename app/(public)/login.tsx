@@ -14,7 +14,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
+import { getUserData, loginWithCredentials } from '~/actions/core/auth/actions';
 import { isProfileCompleted } from '~/actions/lib';
 import SubmitButton from '~/components/custom/Button.Submit';
 import Input from '~/components/custom/Input';

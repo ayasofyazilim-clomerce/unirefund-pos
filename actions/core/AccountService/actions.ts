@@ -1,5 +1,5 @@
 import { fetchRequest } from '~/helper-functions/customFetch';
-import { getAccountServiceClient } from '../lib';
+import { getAccountServiceClient } from '~/actions/lib';
 import type { GrantedPolicies } from './types';
 
 export async function getUserProfileApi() {
@@ -7,12 +7,7 @@ export async function getUserProfileApi() {
     const client = await getAccountServiceClient();
     return await client.profile.getApiAccountMyProfile();
   }
-  const response = await fetchRequest(getData);
-  if (response instanceof Error) {
-    console.log('Error fetching user profile:', response);
-    return undefined;
-  }
-  return response;
+  return await fetchRequest(getData,"getUserProfileApi");
 }
 export async function getGrantedPoliciesApi() {
   async function getData() {
@@ -22,22 +17,12 @@ export async function getGrantedPoliciesApi() {
     });
     return response.auth?.grantedPolicies as GrantedPolicies;
   }
-  const response = await fetchRequest(getData);
-  if (response instanceof Error) {
-    console.log('Error fetching granted policies:', response);
-    return undefined;
-  }
-  return response;
+  return await fetchRequest(getData,"getGrantedPoliciesApi");
 }
 export async function getTenantByNameApi(name: string) {
   async function getData() {
     const client = await getAccountServiceClient();
     return await client.abpTenant.getApiAbpMultiTenancyTenantsByNameByName({ name });
   }
-  const response = await fetchRequest(getData);
-  if (response instanceof Error) {
-    console.log('Error fetching tenants:', response);
-    return undefined;
-  }
-  return response;
+  return await fetchRequest(getData,"getTenantByNameApi");
 }

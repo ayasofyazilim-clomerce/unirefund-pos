@@ -4,7 +4,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useCallback, useRef, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import QRCodeStyled from 'react-native-qrcode-styled';
-import { logoutUser } from '~/actions/auth/logoutUser';
+import { logoutUser } from '~/actions/core/auth/logoutUser';
 import { ListItem, ListView } from '~/components/custom/ListView';
 import QRModal from '~/components/modals/profile/qr-modal';
 import { Avatar, AvatarFallback } from '~/components/ui/avatar';

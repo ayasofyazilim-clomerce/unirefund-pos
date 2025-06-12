@@ -2,7 +2,7 @@ import { router, Stack } from 'expo-router';
 import { useState } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
-import { logoutUser } from '~/actions/auth/logoutUser';
+import { logoutUser } from '~/actions/core/auth/logoutUser';
 import SubmitButton from '~/components/custom/Button.Submit';
 import Stepper from '~/components/custom/Stepper';
 import { useRegistrationStore, useStore } from '~/store/store';

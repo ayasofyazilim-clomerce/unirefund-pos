@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Icon from '@expo/vector-icons/Ionicons';
-import { getTenantByNameApi } from '~/actions/AccountService/actions';
+import { getTenantByNameApi } from '~/actions/core/AccountService/actions';
 import SubmitButton from '~/components/custom/Button.Submit';
 import Input from '~/components/custom/Input';
 import { Text } from '~/components/ui/text';

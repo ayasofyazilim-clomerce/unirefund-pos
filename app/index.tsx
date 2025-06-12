@@ -1,7 +1,7 @@
 import { router, SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
-import { getGrantedPoliciesApi, getUserProfileApi } from '~/actions/AccountService/actions';
-import { checkIsLoggedIn } from '~/actions/auth/actions';
+import { getGrantedPoliciesApi, getUserProfileApi } from '~/actions/core/AccountService/actions';
+import { checkIsLoggedIn } from '~/actions/core/auth/actions';
 import { useStore } from '~/store/store';
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';

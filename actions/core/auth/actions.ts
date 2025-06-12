@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { Store } from '~/store/types';
 import { getGrantedPoliciesApi, getUserProfileApi } from '../AccountService/actions';
-import { ENVIRONMENT } from '../lib';
+import { ENVIRONMENT } from '../../lib';
 import * as SecureStore from 'expo-secure-store';
 
 export async function checkIsLoggedIn() {
