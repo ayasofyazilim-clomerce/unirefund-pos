@@ -28,9 +28,7 @@ export default function TabLayout() {
             href: '/(tabs)/tags',
             title: 'Tags',
             headerShown: false,
-            tabBarIcon: ({ color }) => (
-              <Icon source="tag-multiple-outline" size={28} color={color} />
-            ),
+            tabBarIcon: ({ color }) => <Icon name="pricetags-outline" size={24} color={color} />,
           }}
         />
         <Tabs.Screen
