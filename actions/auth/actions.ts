@@ -41,10 +41,7 @@ export async function loginWithCredentials(username: string, password: string, t
       return 'Unknown error';
     }
     const decoded = decodeJWT(data.access_token);
-    await AsyncStorage.setItem(
-      'merchantIds',
-      decoded.member_ids ? decoded.member_ids.join(',') : ''
-    );
+    await AsyncStorage.setItem('activeMerchant', decoded.active_merchant || '');
     await AsyncStorage.setItem('refreshToken', data.refresh_token);
     await AsyncStorage.setItem('accessToken', data.access_token);
     await fetch(`${ENVIRONMENT[env]}/api/m/?access_token=${data.access_token}`);
@@ -71,7 +68,12 @@ export async function getUserData(
   setGrantedPolicies(grantedPolicies);
   const memberList = await getMerchants();
   setMerchantList(memberList?.items || null);
-  setActiveMerchant(memberList?.items?.[0] || null);
+  const activeMerchant = await AsyncStorage.getItem('activeMerchant');
+  if (activeMerchant && activeMerchant.length > 0) {
+    setActiveMerchant(memberList?.items?.find((m) => m.id === activeMerchant) || null);
+  } else {
+    setActiveMerchant(memberList?.items?.[0] || null);
+  }
   return userProfile;
 }
 
@@ -97,5 +99,5 @@ export type JWTUser = {
   session_id: string | null;
   sub: string | null;
   unique_name: string | null;
-  member_ids: string[] | null;
+  active_merchant: string | null;
 };
