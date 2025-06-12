@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import '../global.css';
 
-const primaryColor = '#dc0201'; // Primary color for the app
+const primaryColor = '#dc0201';
 
 export default function RootLayout() {
   return (
