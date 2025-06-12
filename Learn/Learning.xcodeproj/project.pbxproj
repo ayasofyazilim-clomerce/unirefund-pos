@@ -6,12 +6,80 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		166A935E2DF856EC0019A66E /* LearningAppClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 166A934F2DF856EA0019A66E /* LearningAppClip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		166A93BF2DF9582C0019A66E /* MRZParser in Frameworks */ = {isa = PBXBuildFile; productRef = 166A93BE2DF9582C0019A66E /* MRZParser */; };
+		166A93C22DF971760019A66E /* NFCPassportReader in Frameworks */ = {isa = PBXBuildFile; productRef = 166A93C12DF971760019A66E /* NFCPassportReader */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		166A935C2DF856EC0019A66E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0DB38052DF06B8600084339 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 166A934E2DF856EA0019A66E;
+			remoteInfo = LearningAppClip;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		166A93632DF856EC0019A66E /* Embed App Clips */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/AppClips";
+			dstSubfolderSpec = 16;
+			files = (
+				166A935E2DF856EC0019A66E /* LearningAppClip.app in Embed App Clips */,
+			);
+			name = "Embed App Clips";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		166A934F2DF856EA0019A66E /* LearningAppClip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearningAppClip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DB380D2DF06B8600084339 /* Learning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Learning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DB38212DF06ECF00084339 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		166A935F2DF856EC0019A66E /* Exceptions for "LearningAppClip" folder in "LearningAppClip" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 166A934E2DF856EA0019A66E /* LearningAppClip */;
+		};
+		166A93662DF8576C0019A66E /* Exceptions for "Shared" folder in "LearningAppClip" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CameraViewController.swift,
+				Components/StepButton.swift,
+				Utils/Mrz.swift,
+				Views/CameraView.swift,
+				Views/PassportSummaryView.swift,
+			);
+			target = 166A934E2DF856EA0019A66E /* LearningAppClip */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		166A93502DF856EA0019A66E /* LearningAppClip */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				166A935F2DF856EC0019A66E /* Exceptions for "LearningAppClip" folder in "LearningAppClip" target */,
+			);
+			path = LearningAppClip;
+			sourceTree = "<group>";
+		};
+		166A93642DF857170019A66E /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				166A93662DF8576C0019A66E /* Exceptions for "Shared" folder in "LearningAppClip" target */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		B0DB380F2DF06B8600084339 /* Learning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Learning;
@@ -20,6 +88,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		166A934C2DF856EA0019A66E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				166A93BF2DF9582C0019A66E /* MRZParser in Frameworks */,
+				166A93C22DF971760019A66E /* NFCPassportReader in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B0DB380A2DF06B8600084339 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,7 +110,9 @@
 		B0DB38042DF06B8500084339 = {
 			isa = PBXGroup;
 			children = (
+				166A93642DF857170019A66E /* Shared */,
 				B0DB380F2DF06B8600084339 /* Learning */,
+				166A93502DF856EA0019A66E /* LearningAppClip */,
 				B0DB38202DF06ECF00084339 /* Frameworks */,
 				B0DB380E2DF06B8600084339 /* Products */,
 			);
@@ -43,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DB380D2DF06B8600084339 /* Learning.app */,
+				166A934F2DF856EA0019A66E /* LearningAppClip.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,6 +138,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		166A934E2DF856EA0019A66E /* LearningAppClip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 166A93602DF856EC0019A66E /* Build configuration list for PBXNativeTarget "LearningAppClip" */;
+			buildPhases = (
+				166A934B2DF856EA0019A66E /* Sources */,
+				166A934C2DF856EA0019A66E /* Frameworks */,
+				166A934D2DF856EA0019A66E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				166A93502DF856EA0019A66E /* LearningAppClip */,
+			);
+			name = LearningAppClip;
+			packageProductDependencies = (
+				166A93BE2DF9582C0019A66E /* MRZParser */,
+				166A93C12DF971760019A66E /* NFCPassportReader */,
+			);
+			productName = LearningAppClip;
+			productReference = 166A934F2DF856EA0019A66E /* LearningAppClip.app */;
+			productType = "com.apple.product-type.application.on-demand-install-capable";
+		};
 		B0DB380C2DF06B8600084339 /* Learning */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0DB381B2DF06B8700084339 /* Build configuration list for PBXNativeTarget "Learning" */;
@@ -65,12 +169,15 @@
 				B0DB38092DF06B8600084339 /* Sources */,
 				B0DB380A2DF06B8600084339 /* Frameworks */,
 				B0DB380B2DF06B8600084339 /* Resources */,
+				166A93632DF856EC0019A66E /* Embed App Clips */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				166A935D2DF856EC0019A66E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				166A93642DF857170019A66E /* Shared */,
 				B0DB380F2DF06B8600084339 /* Learning */,
 			);
 			name = Learning;
@@ -90,6 +197,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					166A934E2DF856EA0019A66E = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					B0DB380C2DF06B8600084339 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -104,17 +214,29 @@
 			);
 			mainGroup = B0DB38042DF06B8500084339;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				166A93BD2DF9582C0019A66E /* XCRemoteSwiftPackageReference "MRZParser" */,
+				166A93C02DF970730019A66E /* XCRemoteSwiftPackageReference "NFCPassportReader" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B0DB380E2DF06B8600084339 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				B0DB380C2DF06B8600084339 /* Learning */,
+				166A934E2DF856EA0019A66E /* LearningAppClip */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		166A934D2DF856EA0019A66E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B0DB380B2DF06B8600084339 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -125,6 +247,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		166A934B2DF856EA0019A66E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B0DB38092DF06B8600084339 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -134,7 +263,89 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		166A935D2DF856EC0019A66E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 166A934E2DF856EA0019A66E /* LearningAppClip */;
+			targetProxy = 166A935C2DF856EC0019A66E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		166A93612DF856EC0019A66E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LearningAppClip/LearningAppClip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LearningAppClip/Preview Content\"";
+				DEVELOPMENT_TEAM = SMN73535BW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LearningAppClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Learning;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "nfc kullanıyoruz";
+				INFOPLIST_KEY_NSCameraUsageDescription = "this app uses camera";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.aeo.Learning.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		166A93622DF856EC0019A66E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LearningAppClip/LearningAppClip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LearningAppClip/Preview Content\"";
+				DEVELOPMENT_TEAM = SMN73535BW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LearningAppClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Learning;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "nfc kullanıyoruz";
+				INFOPLIST_KEY_NSCameraUsageDescription = "this app uses camera";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.aeo.Learning.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		B0DB38192DF06B8700084339 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -262,8 +473,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Learning/Preview Content\"";
+				DEVELOPMENT_TEAM = SMN73535BW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "this app uses camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -291,8 +504,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Learning/Preview Content\"";
+				DEVELOPMENT_TEAM = SMN73535BW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "this app uses camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -315,6 +530,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		166A93602DF856EC0019A66E /* Build configuration list for PBXNativeTarget "LearningAppClip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				166A93612DF856EC0019A66E /* Debug */,
+				166A93622DF856EC0019A66E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B0DB38082DF06B8600084339 /* Build configuration list for PBXProject "Learning" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -334,6 +558,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		166A93BD2DF9582C0019A66E /* XCRemoteSwiftPackageReference "MRZParser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/appintheair/MRZParser";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		166A93C02DF970730019A66E /* XCRemoteSwiftPackageReference "NFCPassportReader" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AndyQ/NFCPassportReader";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		166A93BE2DF9582C0019A66E /* MRZParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 166A93BD2DF9582C0019A66E /* XCRemoteSwiftPackageReference "MRZParser" */;
+			productName = MRZParser;
+		};
+		166A93C12DF971760019A66E /* NFCPassportReader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 166A93C02DF970730019A66E /* XCRemoteSwiftPackageReference "NFCPassportReader" */;
+			productName = NFCPassportReader;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B0DB38052DF06B8600084339 /* Project object */;
 }
