@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
+import { decodeJWT } from '~/lib/utils';
 import type { Store } from '~/store/types';
 import { getGrantedPoliciesApi, getUserProfileApi } from '../AccountService/actions';
 import { ENVIRONMENT } from '../lib';
-import * as SecureStore from 'expo-secure-store';
+import { getMerchants } from '~/actions/CRMService/actions';
 
 export async function checkIsLoggedIn() {
   const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
@@ -38,6 +40,11 @@ export async function loginWithCredentials(username: string, password: string, t
       }
       return 'Unknown error';
     }
+    const decoded = decodeJWT(data.access_token);
+    await AsyncStorage.setItem(
+      'merchantIds',
+      decoded.member_ids ? decoded.member_ids.join(',') : ''
+    );
     await AsyncStorage.setItem('refreshToken', data.refresh_token);
     await AsyncStorage.setItem('accessToken', data.access_token);
     await fetch(`${ENVIRONMENT[env]}/api/m/?access_token=${data.access_token}`);
@@ -50,7 +57,9 @@ export async function loginWithCredentials(username: string, password: string, t
 
 export async function getUserData(
   setProfile: Store['setProfile'],
-  setGrantedPolicies: Store['setGrantedPolicies']
+  setGrantedPolicies: Store['setGrantedPolicies'],
+  setMerchantList: Store['setMerchantList'],
+  setActiveMerchant: Store['setActiveMerchant']
 ) {
   const userProfile = await getUserProfileApi();
   if (!userProfile) {
@@ -60,5 +69,33 @@ export async function getUserData(
   setProfile(userProfile);
   const grantedPolicies = await getGrantedPoliciesApi();
   setGrantedPolicies(grantedPolicies);
+  const memberList = await getMerchants();
+  setMerchantList(memberList?.items || null);
+  setActiveMerchant(memberList?.items?.[0] || null);
   return userProfile;
 }
+
+export type JWTUser = {
+  aud: string[] | null;
+  client_id: string | null;
+  email: string | null;
+  email_verified: string | null;
+  exp: number;
+  family_name: string | null;
+  given_name: string | null;
+  iat: number;
+  iss: string | null;
+  jti: string | null;
+  oi_au_id: string | null;
+  oi_prst: string | null;
+  oi_tkn_id: string | null;
+  phone_number: string | null;
+  phone_number_verified: string | null;
+  preferred_username: string | null;
+  role: string | null;
+  scope: string | null;
+  session_id: string | null;
+  sub: string | null;
+  unique_name: string | null;
+  member_ids: string[] | null;
+};

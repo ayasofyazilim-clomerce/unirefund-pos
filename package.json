@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ayasofyazilim/core-saas": "^0.0.4",
+    "@ayasofyazilim/saas": "^0.0.155",
     "@expo/vector-icons": "^14.0.0",
     "@gorhom/bottom-sheet": "^5",
     "@novu/react-native": "^3.3.1",

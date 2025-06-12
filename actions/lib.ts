@@ -2,7 +2,9 @@ import {
   AccountServiceClient,
   Volo_Abp_Account_ProfileDto,
 } from '@ayasofyazilim/core-saas/AccountService';
+import { CRMServiceClient } from '@ayasofyazilim/saas/CRMService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '~/lib/constants';
 
 const HEADERS = {
   'X-Requested-With': 'XMLHttpRequest',
@@ -25,7 +27,17 @@ export async function getAccountServiceClient(customHeaders?: Record<string, str
 
   return new AccountServiceClient({
     TOKEN: accessToken,
-    BASE: 'https://api.unirefund.com',
+    BASE: API_URL,
+    HEADERS: { ...HEADERS, ...customHeaders },
+  });
+}
+
+export async function getCRMServiceClient(customHeaders?: Record<string, string>) {
+  const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
+
+  return new CRMServiceClient({
+    TOKEN: accessToken,
+    BASE: API_URL,
     HEADERS: { ...HEADERS, ...customHeaders },
   });
 }

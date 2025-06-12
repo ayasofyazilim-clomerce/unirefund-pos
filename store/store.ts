@@ -1,5 +1,5 @@
 import { createWithEqualityFn } from 'zustand/traditional';
-import type { Store, RegistrationStore } from './types';
+import type { Store } from './types';
 
 export const useStore = createWithEqualityFn<Store>()((set) => ({
   env: 'live',
@@ -16,9 +16,10 @@ export const useStore = createWithEqualityFn<Store>()((set) => ({
 
   grantedPolicies: undefined,
   setGrantedPolicies: (data) => set(() => ({ grantedPolicies: data })),
-}));
 
-export const useRegistrationStore = createWithEqualityFn<RegistrationStore>()((set) => ({
-  scannedDocument: undefined,
-  setScannedDocument: (scannedDocument) => set(() => ({ scannedDocument })),
+  merchantList: null,
+  setMerchantList: (merchantList) => set(() => ({ merchantList })),
+
+  activeMerchant: null,
+  setActiveMerchant: (merchant) => set(() => ({ activeMerchant: merchant })),
 }));

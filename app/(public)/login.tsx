@@ -19,7 +19,16 @@ import SubmitButton from '~/components/ui/Button.Submit';
 import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';
 export default function Login() {
-  const { tenant, setTenant, setProfile, setGrantedPolicies, setEnv, env } = useStore();
+  const {
+    tenant,
+    setTenant,
+    setProfile,
+    setGrantedPolicies,
+    setEnv,
+    env,
+    setMerchantList,
+    setActiveMerchant,
+  } = useStore();
 
   const [showPassword, setShowPassword] = useState(false);
   const [usernameInput, setUsernameInput] = useState('');
@@ -33,8 +42,8 @@ export default function Login() {
   const isSubmitDisabled = !usernameInput || !passwordInput || submitDisabled;
 
   useEffect(() => {
-    if (logoClickCount > 5) {
-      setUsernameInput('mobil_test6');
+    if (logoClickCount > 2) {
+      setUsernameInput('single-merchant');
       setPasswordInput('1q2w3E*');
     }
   }, [logoClickCount]);
@@ -50,7 +59,12 @@ export default function Login() {
       if (loginStatus !== true) {
         setSubmitError(loginStatus);
       }
-      const userData = await getUserData(setProfile, setGrantedPolicies);
+      const userData = await getUserData(
+        setProfile,
+        setGrantedPolicies,
+        setMerchantList,
+        setActiveMerchant
+      );
       if (loginStatus === true && userData) {
         router.replace('/(tabs)');
         return;
