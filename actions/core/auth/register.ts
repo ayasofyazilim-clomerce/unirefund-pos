@@ -2,7 +2,7 @@ import {
   Volo_Abp_Account_ProfileDto,
   Volo_Abp_Account_UpdateProfileDto,
 } from '@ayasofyazilim/core-saas/AccountService';
-import { getAccountServiceClient } from '../lib';
+import { getAccountServiceClient } from '../../lib';
 
 export async function signUp(emailAddress: string, userName: string, password: string) {
   const client = await getAccountServiceClient();

@@ -1,30 +1,36 @@
 import { ApiError } from '@ayasofyazilim/core-saas/AccountService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchNewAccessTokenByRefreshToken } from '~/actions/auth/fetchNewAccessToken';
+import { fetchNewAccessTokenByRefreshToken } from '~/actions/core/auth/fetchNewAccessToken';
 
-export async function fetchRequest<T>(request: () => Promise<T>) {
+export async function fetchRequest<T>(request: () => Promise<T>, apiName: string) {
+  let res = null;
   try {
     const response = await request();
-    return response;
+    res = response;
   } catch (err) {
     console.log(err);
     if (err instanceof ApiError) {
       if (err.status === 401) {
         // Refresh the token and retry the request
         if (await fetchNewAccessTokenByRefreshToken()) {
-          return await fetchRequest(request);
+          res = await fetchRequest(request, apiName);
         } else {
           console.log('Failed to refresh token');
           await AsyncStorage.removeItem('refreshToken');
           await AsyncStorage.removeItem('accessToken');
-          return new Error('Failed to refresh token');
+          res = new Error('Failed to refresh token');
         }
       }
-      return err;
+      res = err;
     } else if (typeof err === 'string') {
-      return new Error(err);
+      res = new Error(err);
     } else {
-      return new Error('An unknown error occurred');
+      res = new Error('An unknown error occurred');
     }
   }
+  if (res instanceof Error) {
+    console.log(`Error fetching ${apiName};`, res);
+    return undefined;
+  }
+  return res;
 }

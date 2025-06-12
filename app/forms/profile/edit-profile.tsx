@@ -17,8 +17,8 @@ import {
   PhoneInputProps,
 } from 'react-native-international-phone-number';
 import { HelperText, TextInput } from 'react-native-paper';
-import { getUserData } from '~/actions/auth/actions';
-import { editProfile } from '~/actions/auth/register';
+import { getUserData } from '~/actions/core/auth/actions';
+import { editProfile } from '~/actions/core/auth/register';
 import SubmitButton from '~/components/ui/Button.Submit';
 import Input, { InputPhone } from '~/components/ui/Input';
 import { useRegistrationStore, useStore } from '~/store/store';

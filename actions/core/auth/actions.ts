@@ -3,7 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 import { decodeJWT } from '~/lib/utils';
 import type { Store } from '~/store/types';
 import { getGrantedPoliciesApi, getUserProfileApi } from '../AccountService/actions';
-import { ENVIRONMENT } from '../lib';
+import { ENVIRONMENT } from '~/actions/lib';
 import { getMerchants } from '~/actions/CRMService/actions';
 
 export async function checkIsLoggedIn() {
