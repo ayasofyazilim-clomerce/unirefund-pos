@@ -3,6 +3,7 @@ import {
   Volo_Abp_Account_ProfileDto,
 } from '@ayasofyazilim/core-saas/AccountService';
 import { CRMServiceClient } from '@ayasofyazilim/saas/CRMService';
+import { TagServiceClient } from '@ayasofyazilim/saas/TagService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '~/lib/constants';
 
@@ -36,6 +37,16 @@ export async function getCRMServiceClient(customHeaders?: Record<string, string>
   const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
 
   return new CRMServiceClient({
+    TOKEN: accessToken,
+    BASE: API_URL,
+    HEADERS: { ...HEADERS, ...customHeaders },
+  });
+}
+
+export async function getTagServiceClient(customHeaders?: Record<string, string>) {
+  const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
+
+  return new TagServiceClient({
     TOKEN: accessToken,
     BASE: API_URL,
     HEADERS: { ...HEADERS, ...customHeaders },

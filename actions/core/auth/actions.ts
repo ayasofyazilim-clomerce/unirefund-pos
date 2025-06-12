@@ -4,7 +4,8 @@ import { decodeJWT } from '~/lib/utils';
 import type { Store } from '~/store/types';
 import { getGrantedPoliciesApi, getUserProfileApi } from '../AccountService/actions';
 import { ENVIRONMENT } from '~/actions/lib';
-import { getMerchants } from '~/actions/CRMService/actions';
+import { getMerchants } from '~/actions/unirefund/CRMService/actions';
+import { API_URL } from '~/lib/constants';
 
 export async function checkIsLoggedIn() {
   const accessToken = (await AsyncStorage.getItem('accessToken')) || undefined;
@@ -17,7 +18,7 @@ export async function checkIsLoggedIn() {
 export async function loginWithCredentials(username: string, password: string, tenantId?: string) {
   try {
     const env = (await SecureStore.getItemAsync('env')) as Store['env'];
-    const response = await fetch('https://api.unirefund.com/connect/token', {
+    const response = await fetch(`${API_URL}/connect/token`, {
       method: 'POST',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
