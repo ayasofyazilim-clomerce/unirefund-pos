@@ -14,7 +14,7 @@ import {
 import { isClip } from 'react-native-app-clip';
 import { Button, Chip, HelperText, Icon, SegmentedButtons, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
+import { getUserData, loginWithCredentials } from '~/actions/core/auth/actions';
 import SubmitButton from '~/components/ui/Button.Submit';
 import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';

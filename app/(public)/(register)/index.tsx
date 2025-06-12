@@ -18,7 +18,7 @@ import Input from '~/components/ui/Input';
 import { useStore } from '~/store/store';
 
 export default function Register() {
-  const { tenant, setProfile, setGrantedPolicies } = useStore();
+  const { tenant, setProfile, setGrantedPolicies, setActiveMerchant, setMerchantList } = useStore();
 
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState('');
@@ -47,7 +47,10 @@ export default function Register() {
       if (loginStatus !== true) {
         setSubmitError(loginStatus);
       }
-      if (loginStatus === true && (await getUserData(setProfile, setGrantedPolicies))) {
+      if (
+        loginStatus === true &&
+        (await getUserData(setProfile, setGrantedPolicies, setMerchantList, setActiveMerchant))
+      ) {
         router.replace('/(tabs)');
         return;
       }
