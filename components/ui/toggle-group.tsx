@@ -21,8 +21,7 @@ function ToggleGroup({
   return (
     <ToggleGroupPrimitive.Root
       className={cn('flex flex-row items-center justify-center gap-1', className)}
-      {...props}
-    >
+      {...props}>
       <ToggleGroupContext.Provider value={{ variant, size }}>
         {children}
       </ToggleGroupContext.Provider>
@@ -60,20 +59,18 @@ function ToggleGroupItem({
         ToggleGroupPrimitive.utils.getIsSelected(value, props.value)
           ? 'text-accent-foreground'
           : 'web:group-hover:text-muted-foreground'
-      )}
-    >
+      )}>
       <ToggleGroupPrimitive.Item
         className={cn(
           toggleVariants({
             variant: context.variant || variant,
             size: context.size || size,
           }),
-          props.disabled && 'web:pointer-events-none opacity-50',
+          props.disabled && 'opacity-50 web:pointer-events-none',
           ToggleGroupPrimitive.utils.getIsSelected(value, props.value) && 'bg-accent',
           className
         )}
-        {...props}
-      >
+        {...props}>
         {children}
       </ToggleGroupPrimitive.Item>
     </TextClassContext.Provider>

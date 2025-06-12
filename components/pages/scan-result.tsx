@@ -3,8 +3,8 @@ import { ParseResult } from 'mrz';
 import { useEffect, useState } from 'react';
 
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
-import SubmitButton from '~/components/ui/Button.Submit';
+import { ActivityIndicator } from 'react-native';
+import SubmitButton from '~/components/custom/Button.Submit';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -44,12 +44,7 @@ function ScanResult({ parseResult, image }: { parseResult: ParseResult; image: s
           })}
 
           <View className="mt-4">
-            <SubmitButton
-              className="mt-auto"
-              mode="contained"
-              icon={'arrow-right'}
-              contentStyle={{ flexDirection: 'row-reverse' }}
-              onSubmit={onSubmit}>
+            <SubmitButton className="mt-auto" icon={'arrow-forward'} onSubmit={onSubmit}>
               Profili Kaydet
             </SubmitButton>
           </View>

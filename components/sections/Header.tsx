@@ -2,17 +2,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { useRouter } from 'expo-router';
-import { Text, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { IconButton } from 'react-native-paper';
+import { ScrollView, Text, View } from 'react-native';
+import Icon from '@expo/vector-icons/Ionicons';
+import { useStore } from '~/store/store';
 import {
   Select,
-  SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectItem,
 } from '~/components/ui/select';
-import { useStore } from '~/store/store';
 
 export function Header(props: BottomTabHeaderProps | NativeStackHeaderProps) {
   const router = useRouter();
@@ -30,8 +29,8 @@ export function Header(props: BottomTabHeaderProps | NativeStackHeaderProps) {
       }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {'headerBackVisible' in props.options && (
-          <IconButton
-            icon="arrow-left"
+          <Icon
+            name="arrow-back"
             contentStyle={{ alignItems: 'flex-start' }}
             size={24}
             onPress={() => {

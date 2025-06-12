@@ -64,7 +64,7 @@ function TableRow({
   return (
     <TablePrimitive.Row
       className={cn(
-        'flex-row border-border border-b web:transition-colors web:hover:bg-muted/50 web:data-[state=selected]:bg-muted',
+        'flex-row border-b border-border web:transition-colors web:hover:bg-muted/50 web:data-[state=selected]:bg-muted',
         className
       )}
       {...props}
@@ -79,10 +79,10 @@ function TableHead({
   ref?: React.RefObject<TablePrimitive.HeadRef>;
 }) {
   return (
-    <TextClassContext.Provider value='text-muted-foreground'>
+    <TextClassContext.Provider value="text-muted-foreground">
       <TablePrimitive.Head
         className={cn(
-          'h-12 px-4 text-left justify-center font-medium [&:has([role=checkbox])]:pr-0',
+          'h-12 justify-center px-4 text-left font-medium [&:has([role=checkbox])]:pr-0',
           className
         )}
         {...props}

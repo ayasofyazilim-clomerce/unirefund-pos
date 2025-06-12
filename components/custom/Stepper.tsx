@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, View, Text } from 'react-native';
-import { Icon } from 'react-native-paper';
+import Icon from '@expo/vector-icons/Ionicons';
 
 type StepperProps = {
   step: number;
@@ -33,7 +33,7 @@ export default function Stepper({
       ? 'text-gray-600'
       : 'text-blue-600';
   const iconColor = completed ? '#166534' : disabled ? '#9ca3af' : '#2563eb';
-  const iconSource = completed ? 'check' : disabled ? 'lock' : 'arrow-right';
+  const iconSource = completed ? 'check' : disabled ? 'lock' : 'arrow-forward';
 
   function handlePress() {
     if (disabled || completed) {

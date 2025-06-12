@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { JWTUser } from '~/actions/auth/actions';
+import { JWTUser } from '~/actions/core/auth/actions';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -61,12 +61,11 @@ function Toggle({
         toggleTextVariants({ variant, size }),
         props.pressed ? 'text-accent-foreground' : 'web:group-hover:text-muted-foreground',
         className
-      )}
-    >
+      )}>
       <TogglePrimitive.Root
         className={cn(
           toggleVariants({ variant, size }),
-          props.disabled && 'web:pointer-events-none opacity-50',
+          props.disabled && 'opacity-50 web:pointer-events-none',
           props.pressed && 'bg-accent',
           className
         )}

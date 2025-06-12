@@ -26,8 +26,7 @@ function Accordion({
     <LayoutAnimationConfig skipEntering>
       <AccordionPrimitive.Root
         {...(props as AccordionPrimitive.RootProps)}
-        asChild={Platform.OS !== 'web'}
-      >
+        asChild={Platform.OS !== 'web'}>
         <Animated.View layout={LinearTransition.duration(200)}>{children}</Animated.View>
       </AccordionPrimitive.Root>
     </LayoutAnimationConfig>
@@ -73,18 +72,17 @@ function AccordionTrigger({
   }));
 
   return (
-    <TextClassContext.Provider value='native:text-lg font-medium web:group-hover:underline'>
-      <AccordionPrimitive.Header className='flex'>
+    <TextClassContext.Provider value="native:text-lg font-medium web:group-hover:underline">
+      <AccordionPrimitive.Header className="flex">
         <AccordionPrimitive.Trigger {...props} asChild>
           <Trigger
             className={cn(
-              'flex flex-row web:flex-1 items-center justify-between py-4 web:transition-all group web:focus-visible:outline-none web:focus-visible:ring-1 web:focus-visible:ring-muted-foreground',
+              'group flex flex-row items-center justify-between py-4 web:flex-1 web:transition-all web:focus-visible:outline-none web:focus-visible:ring-1 web:focus-visible:ring-muted-foreground',
               className
-            )}
-          >
+            )}>
             {children}
             <Animated.View style={chevronStyle}>
-              <ChevronDown size={18} className={'text-foreground shrink-0'} />
+              <ChevronDown size={18} className={'shrink-0 text-foreground'} />
             </Animated.View>
           </Trigger>
         </AccordionPrimitive.Trigger>
@@ -102,14 +100,13 @@ function AccordionContent({
 }) {
   const { isExpanded } = AccordionPrimitive.useItemContext();
   return (
-    <TextClassContext.Provider value='native:text-lg'>
+    <TextClassContext.Provider value="native:text-lg">
       <AccordionPrimitive.Content
         className={cn(
           'overflow-hidden text-sm web:transition-all',
           isExpanded ? 'web:animate-accordion-down' : 'web:animate-accordion-up'
         )}
-        {...props}
-      >
+        {...props}>
         <InnerContent className={cn('pb-4', className)}>{children}</InnerContent>
       </AccordionPrimitive.Content>
     </TextClassContext.Provider>
@@ -124,8 +121,7 @@ function InnerContent({ children, className }: { children: React.ReactNode; clas
     <Animated.View
       entering={FadeIn}
       exiting={FadeOutUp.duration(200)}
-      className={cn('pb-4', className)}
-    >
+      className={cn('pb-4', className)}>
       {children}
     </Animated.View>
   );

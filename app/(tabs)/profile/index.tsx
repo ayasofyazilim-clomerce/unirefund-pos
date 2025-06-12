@@ -3,12 +3,13 @@ import { router, Stack } from 'expo-router';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useCallback, useRef, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Avatar, Text } from 'react-native-paper';
 import QRCodeStyled from 'react-native-qrcode-styled';
 import { logoutUser } from '~/actions/core/auth/logoutUser';
-import { ListItem, ListView } from '~/components/ui/ListView';
-import { useStore } from '~/store/store';
+import { ListItem, ListView } from '~/components/custom/ListView';
 import QRModal from '~/components/modals/profile/qr-modal';
+import { Avatar, AvatarFallback } from '~/components/ui/avatar';
+import { Text } from '~/components/ui/text';
+import { useStore } from '~/store/store';
 
 export default function Profile() {
   const { profile } = useStore();
@@ -66,7 +67,13 @@ export default function Profile() {
       />
       <View style={styles.container}>
         <View className="relative mb-6 flex-col items-center justify-between gap-3">
-          <Avatar.Text size={128} label={initials} />
+          <Avatar
+            className="mb-2 size-32 border border-gray-400"
+            alt={avatarPlaceholder().initials}>
+            <AvatarFallback>
+              <Text className="text-lg font-bold">{avatarPlaceholder().initials}</Text>
+            </AvatarFallback>
+          </Avatar>
           <Text className="text-lg font-bold">{fullName}</Text>
           <Pressable className="absolute right-0 top-0" onPress={() => setModalVisible(true)}>
             <QRCodeStyled
@@ -80,19 +87,19 @@ export default function Profile() {
         <ListView title="Hesap ayarları">
           <ListItem
             title="Hesap bilgileri"
-            icon="account-circle-outline"
+            icon="person-circle-outline"
             onPress={() => router.navigate('/(tabs)/profile/(account)/edit-profile')}
           />
           <ListItem
             title="Şifre değiştir"
-            icon="lock-outline"
+            icon="lock-closed-outline"
             onPress={() => router.navigate('/(tabs)/profile/(account)/change-password')}
           />
-          <ListItem title="Bildirim tercihleri" icon="bell-badge-outline" />
+          <ListItem title="Bildirim tercihleri" icon="notifications-outline" />
         </ListView>
         <ListView title="Diğer">
           <ListItem title="Destek" icon="help-circle-outline" />
-          <ListItem title="Çıkış Yap" icon="exit-to-app" onPress={logoutAndRedirect} />
+          <ListItem title="Çıkış Yap" icon="exit" onPress={logoutAndRedirect} />
         </ListView>
       </View>
 
