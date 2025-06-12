@@ -7,9 +7,10 @@ import { parse, ParseResult } from 'mrz';
 import { useRef } from 'react';
 import { Dimensions, Image, Text, View } from 'react-native';
 import MlkitOcr, { MlkitOcrResult } from 'react-native-mlkit-ocr';
-import { Button } from 'react-native-paper';
+import { Button } from '~/components/ui/button';
 import ScanResult from '~/components/pages/scan-result';
 import { useRegistrationStore } from '~/store/store';
+import Icon from '@expo/vector-icons/Ionicons';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -125,11 +126,9 @@ function ScanDocument() {
       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9 }}>
         <View className="absolute z-10 mt-4 flex-row justify-start px-6">
           <Button
-            icon="arrow-left"
             onPress={() => router.back()}
-            mode="text"
-            textColor="#fff"
             style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="arrow-back" size={20} color="#fff" />
             <Text className="text-xl font-bold">Geri</Text>
           </Button>
         </View>

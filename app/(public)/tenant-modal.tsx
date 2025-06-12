@@ -1,10 +1,11 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { HelperText, IconButton } from 'react-native-paper';
+import Icon from '@expo/vector-icons/Ionicons';
 import { getTenantByNameApi } from '~/actions/AccountService/actions';
-import SubmitButton from '~/components/ui/Button.Submit';
-import Input from '~/components/ui/Input';
+import SubmitButton from '~/components/custom/Button.Submit';
+import Input from '~/components/custom/Input';
+import { Text } from '~/components/ui/text';
 import { useDebounce } from '~/hooks/useDebounce';
 import { useStore } from '~/store/store';
 
@@ -28,31 +29,27 @@ export default function Modal() {
   };
   return (
     <View className="flex-1">
-      <View className="items-end">
-        <IconButton icon="close" size={24} onPress={() => router.back()} />
+      <View className="items-end p-4">
+        <Icon name="close" size={24} onPress={() => router.back()} />
       </View>
       <View style={styles.container}>
         <View>
           <View className="flex flex-row">
             <Input
-              mode="outlined"
               label="Tenant Adı"
               value={tenantNameInput}
-              error={error}
+              // error={error}
               autoFocus={true}
               onChangeText={(text) => setTenantNameInput(text)}
             />
           </View>
-          <HelperText type="error" visible={error}>
-            Bu tenant adı bulunamadı.
-          </HelperText>
+          {error && <Text className="mt-4 text-red-700">Bu tenant adı bulunamadı. </Text>}
         </View>
         <SubmitButton
           className="mt-4"
-          mode="contained"
           disabled={!tenantName}
           onSubmit={getTenantName}
-          icon={'chevron-right'}>
+          icon={'chevron-forward'}>
           Devam Et
         </SubmitButton>
       </View>

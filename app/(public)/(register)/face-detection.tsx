@@ -8,7 +8,7 @@ import {
   useFaceDetector,
 } from 'react-native-vision-camera-face-detector';
 import { Worklets } from 'react-native-worklets-core';
-import { CircularProgress } from '~/components/ui/CircularProgress';
+import { CircularProgress } from '~/components/custom/CircularProgress';
 
 const defaultLivenessTestValues = {
   smile: false,

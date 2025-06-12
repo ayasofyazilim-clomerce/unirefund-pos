@@ -16,12 +16,12 @@ import {
   isValidPhoneNumber,
   PhoneInputProps,
 } from 'react-native-international-phone-number';
-import { HelperText, TextInput } from 'react-native-paper';
 import { getUserData } from '~/actions/auth/actions';
 import { editProfile } from '~/actions/auth/register';
-import SubmitButton from '~/components/ui/Button.Submit';
-import Input, { InputPhone } from '~/components/ui/Input';
+import SubmitButton from '~/components/custom/Button.Submit';
+import Input, { InputPhone } from '~/components/custom/Input';
 import { useRegistrationStore, useStore } from '~/store/store';
+import { Text } from '~/components/ui/text';
 
 export default function EditProfileForm() {
   const locales = getLocales();
@@ -98,22 +98,20 @@ export default function EditProfileForm() {
         <View>
           <View className="flex flex-row">
             <Input
-              mode="outlined"
               label="Adınız"
               value={nameInput}
               onChangeText={(text) => setNameInput(text)}
               onChange={onInputChange}
-              left={<TextInput.Icon icon="account-outline" />}
+              icon="person-outline"
             />
           </View>
           <View className="mt-3 flex flex-row">
             <Input
-              mode="outlined"
               label="Soyadınız"
               value={surnameInput}
               onChangeText={(text) => setSurnameInput(text)}
               onChange={onInputChange}
-              left={<TextInput.Icon icon="email-outline" />}
+              icon="person-outline"
             />
           </View>
 
@@ -132,17 +130,9 @@ export default function EditProfileForm() {
               language="tr"
             />
           </View>
-          <HelperText type="error" visible={submitDisabled} className={'-mx-2 p-0'}>
-            {submitError}
-          </HelperText>
+          {submitDisabled && <Text className="mt-4 text-red-700">{submitError} </Text>}
 
-          <SubmitButton
-            className="mt-auto"
-            mode="contained"
-            icon={'arrow-right'}
-            contentStyle={{ flexDirection: 'row-reverse' }}
-            onSubmit={onSubmit}
-            disabled={isSubmitDisabled}>
+          <SubmitButton icon={'chevron-forward'} onSubmit={onSubmit} disabled={isSubmitDisabled}>
             Profili Kaydet
           </SubmitButton>
         </View>

@@ -1,50 +1,25 @@
-import { Text, View } from 'react-native';
-import PhoneInput, { PhoneInputProps } from 'react-native-international-phone-number';
-import { TextInput, TextInputProps } from 'react-native-paper';
+import * as React from 'react';
+import { TextInput, type TextInputProps } from 'react-native';
+import { cn } from '~/lib/utils';
 
-function Input(args: TextInputProps) {
+function Input({
+  className,
+  placeholderClassName,
+  ...props
+}: TextInputProps & {
+  ref?: React.RefObject<TextInput>;
+}) {
   return (
-    <View className="flex-1">
-      <Text className="mb-2 font-bold text-gray-600">{args.label}</Text>
-      <TextInput
-        {...args}
-        disabled={args.disabled}
-        style={{ backgroundColor: '#fff' }}
-        outlineStyle={{ borderRadius: 8, borderWidth: 2 }}
-        label={undefined}
-        outlineColor="#ddd"
-        activeOutlineColor="#daa"
-      />
-    </View>
+    <TextInput
+      className={cn(
+        'web:flex h-10 native:h-12 web:w-full rounded-md border border-input bg-background px-3 web:py-2 text-base lg:text-sm native:text-lg native:leading-[1.25] text-foreground placeholder:text-muted-foreground web:ring-offset-background file:border-0 file:bg-transparent file:font-medium web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
+        props.editable === false && 'opacity-50 web:cursor-not-allowed',
+        className
+      )}
+      placeholderClassName={cn('text-muted-foreground', placeholderClassName)}
+      {...props}
+    />
   );
 }
 
-export function InputPhone(args: PhoneInputProps & { label: string }) {
-  return (
-    <View className="flex-1">
-      <Text className="mb-2 font-bold text-gray-600">{args.label}</Text>
-      <PhoneInput
-        {...args}
-        language="tr"
-        phoneInputStyles={{
-          container: {
-            backgroundColor: '#fff',
-            borderRadius: 8,
-            borderWidth: 2,
-            height: 56,
-            borderColor: '#ddd',
-          },
-          flagContainer: {
-            backgroundColor: 'white',
-            borderRightWidth: 1,
-            borderColor: '#ddd',
-          },
-          caret: { display: 'none' },
-          divider: { display: 'none' },
-        }}
-      />
-    </View>
-  );
-}
-
-export default Input;
+export { Input };

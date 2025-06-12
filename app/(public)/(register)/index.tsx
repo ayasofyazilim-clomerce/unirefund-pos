@@ -9,12 +9,14 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Button, HelperText, TextInput } from 'react-native-paper';
+
+import Icon from '@expo/vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserData, loginWithCredentials } from '~/actions/auth/actions';
 import { signUp } from '~/actions/auth/register';
-import SubmitButton from '~/components/ui/Button.Submit';
-import Input from '~/components/ui/Input';
+import SubmitButton from '~/components/custom/Button.Submit';
+import Input from '~/components/custom/Input';
+import { Button } from '~/components/ui/button';
 import { useStore } from '~/store/store';
 
 export default function Register() {
@@ -65,11 +67,9 @@ export default function Register() {
     <SafeAreaView className="flex-1" edges={['bottom']}>
       <View className="flex-row justify-start px-6">
         <Button
-          icon="arrow-left"
           onPress={() => router.replace('/(public)/login')}
-          mode="text"
-          textColor="#333"
           style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Icon name="arrow-back" size={24} color="#333" />
           <Text className="text-xl font-bold">Geri</Text>
         </Button>
       </View>
@@ -80,17 +80,15 @@ export default function Register() {
           <View>
             <View className="flex flex-row">
               <Input
-                mode="outlined"
                 label="Kullanıcı Adı"
                 value={usernameInput}
                 onChangeText={(text) => setUsernameInput(text)}
                 onChange={onInputChange}
-                left={<TextInput.Icon icon="account-outline" />}
+                icon={'person-outline'}
               />
             </View>
             <View className="mt-3 flex flex-row">
               <Input
-                mode="outlined"
                 label="Email"
                 value={emailInput}
                 autoComplete="email"
@@ -98,20 +96,19 @@ export default function Register() {
                 keyboardType="email-address"
                 onChangeText={(text) => setEmailInput(text)}
                 onChange={onInputChange}
-                left={<TextInput.Icon icon="email-outline" />}
+                icon={'mail-outline'}
               />
             </View>
             <View className="mt-3 flex flex-row">
               <Input
-                mode="outlined"
                 label="Şifre"
                 value={passwordInput}
                 onChangeText={(text) => setPasswordInput(text)}
                 onChange={onInputChange}
                 secureTextEntry={!showPassword}
-                left={<TextInput.Icon icon="lock-outline" />}
+                icon={'lock-closed'}
                 right={
-                  <TextInput.Icon
+                  <Icon
                     icon={showPassword ? 'eye-off' : 'eye'}
                     onPress={() => setShowPassword(!showPassword)}
                   />
@@ -119,15 +116,11 @@ export default function Register() {
               />
             </View>
 
-            <HelperText type="error" visible={submitDisabled} className={'-mx-2 p-0'}>
-              {submitError}
-            </HelperText>
+            {submitDisabled && <Text className="mt-4 text-red-700">{submitError} </Text>}
 
             <SubmitButton
               className="mt-auto"
-              mode="contained"
-              icon={'arrow-right'}
-              contentStyle={{ flexDirection: 'row-reverse' }}
+              icon={'arrow-forward'}
               onSubmit={signUpFunction}
               disabled={isSubmitDisabled}>
               Hesap Oluştur

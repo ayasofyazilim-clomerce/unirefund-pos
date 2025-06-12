@@ -2,7 +2,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { NovuProvider } from '@novu/react-native';
 import { Tabs, useRouter } from 'expo-router';
 import { Pressable } from 'react-native';
-import { Icon } from 'react-native-paper';
+import Icon from '@expo/vector-icons/Ionicons';
 import { Header } from '~/components/sections/Header';
 
 export default function TabLayout() {
@@ -25,7 +25,7 @@ export default function TabLayout() {
           name="index"
           options={{
             title: 'Ev',
-            tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} />,
+            tabBarIcon: ({ color }) => <Icon name="home-outline" size={24} color={color} />,
           }}
         />
         <Tabs.Screen
@@ -53,9 +53,9 @@ export default function TabLayout() {
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.3,
                   shadowRadius: 5,
-                  elevation: 8, // Android için
+                  elevation: 8,
                 }}>
-                <Icon source="store-marker" size={28} color={'#fff'} />
+                <Icon name="location" size={28} color={'#fff'} />
               </Pressable>
             ),
           }}
@@ -66,7 +66,7 @@ export default function TabLayout() {
             href: '/(tabs)/profile',
             title: 'Profil',
             headerShown: false,
-            tabBarIcon: ({ color }) => <Icon source="account-outline" size={28} color={color} />,
+            tabBarIcon: ({ color }) => <Icon name="person-outline" size={24} color={color} />,
           }}
         />
       </Tabs>
